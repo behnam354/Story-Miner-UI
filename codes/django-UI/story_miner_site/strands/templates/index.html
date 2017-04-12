@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<textarea rows="4" cols="50" name="comment" form="usrform">
+{{ input_sentence }}</textarea>
+<br>
+<form action="/strands/" id="usrform" method="post">
+  {% csrf_token %}
+  <input type="submit">
+</form>
+
+
+<br>
+<br>
+{{ df_res | safe}}
+
+
+</body>
+</html>
+
+
