@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script type="text/javascript">
+    $(function() {
+        $('form').submit(function() {
+            $(':submit').attr('disabled', 'disabled');
+            document.getElementById("state").innerHTML = 'Processing... Please wait.';
+        });
+    });
+	$(document).ready(function () {
+		// Handler for .ready() called.
+		$('html, body').animate({
+			scrollTop: $('#output').offset().top
+		}, 'slow');
+	});
+</script>
+
+<form action='' method='post' name='input'>
+	{{ form.hidden_tag() }}
+	<p>
+		{{form.text(rows='10', cols='100', id ='form', placeholder="Enter some contents in this field.", 
+					style='width: 100%;', class = 'form-control')}}
+			{% for error in form.text.errors %}
+				<div class="alert alert-danger">{{ error }}</div>
+			{% endfor %}
+	</p>
+	<p>{{ form.showDataFrame }} show DataFrame </p>
+	<p>
+	<input type="submit" value="submit" class="btn btn-primary btn-lg" style='background-color:#111111' >&nbsp&nbsp
+	<span id='state'></span>
+	</p>
+	
+</form>
+<div class='page' id='output'> 
+{% if table %}
+	<div class="alert alert-success">Succeeded!</div>
+    {{ table|safe }}
+{% endif %}
+</div>
+{% endblock %}

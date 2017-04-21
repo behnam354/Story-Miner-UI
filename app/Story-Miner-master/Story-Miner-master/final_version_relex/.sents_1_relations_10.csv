@@ -1,0 +1,8 @@
+sentence,arg1,rel,arg2,type,pattern,arg1_with_pos,rel_with_pos,arg2_with_pos,arg1_prepositions,rel_prepositions,arg2_prepositions
+Our ped's schedule recommends MMR and Varivax chicken pox at the 12 month check.,{schedule},{recommends},{MMR},SVO,"(nsubj, verb, dobj)",schedule-NN-4,recommends-VBZ-5,MMR-NNP-6,,REASON: prep_at TEXT: the 12 month {check} -- ,
+"I am pretty sure I want to delay the MMR, assuming we're not in an area of increased measles incidence, which I do not think we are.",{I},do not {think},increased measles {incidence},SVO,"(nsubj, verb, dobj)",I-PRP-25,do-VBP-26 not-RB-27 think-VB-28,increased-VBN-20 measles-NNS-21 incidence-NN-22,,,
+"For those who have given these vax but on a delayed schedule, when did you give them?",{you},when did {give},{them},SVO,"(nsubj, verb, dobj)",you-PRP-16,when-WRB-14 did-VBD-15 give-VB-17,them-PRP-18,,,
+"I'd like my son to have them before he goes to school, which will be when he is 4 years 11 months October birthday.",{I},'d {like},{son},SVO,"(nsubj, verb, dobj)",I-PRP-1,'d-MD-2 like-VB-3,son-NN-5,,,
+we delayed mmr and gave it to him seperately as 3 shots.,{we},{delayed},{mmr},SVO,"(nsubj, verb, dobj)",we-PRP-1,delayed-VBD-2,mmr-NN-3,,,
+I would certainly not get the shot before school age.,{I},would certainly not {get},the {shot},SVO,"(nsubj, verb, dobj)",I-PRP-1,would-MD-2 certainly-RB-3 not-RB-4 get-VB-5,the-DT-6 shot-NN-7,,REASON: prep_before TEXT: school {age} -- ,
+"I want my ds to have lasting immunity, not a shot that will wear off when he's an adult and at a much higher risk.",{I},{want},{ds} have not,SVO,"(nsubj, verb, dobj)",I-PRP-1,want-VBP-2,ds-NNS-4 have-VB-6 not-RB-10,,,
