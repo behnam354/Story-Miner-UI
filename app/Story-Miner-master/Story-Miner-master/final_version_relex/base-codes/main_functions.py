@@ -442,8 +442,8 @@ def text_corpus_to_rels(
 
         df = read_data(file_input_arg, DATA_SET, INPUT_DELIMITER, LOAD_ANNOTATIONS)
         texts = df['text'].tolist()
-    print texts
-    print len(texts)
+    #print texts
+    #print len(texts)
     
     output_prefix = output_dir_arg + input_fname
     f_rel = open(output_prefix +"_"+"relations_" + str(MAX_ITERATION) +".csv", "w")
@@ -451,7 +451,8 @@ def text_corpus_to_rels(
     #f_input_plus_annotations = open(output_prefix +"_with_annotations" +".csv", "w")
 
     header = ['sentence','arg1','rel','arg2','type','pattern',
-              'arg1_with_pos','rel_with_pos','arg2_with_pos',
+              
+'arg1_with_pos','rel_with_pos','arg2_with_pos',
               'arg1_prepositions', 'rel_prepositions', 'arg2_prepositions']
     if SAVE_ANNOTATIONS_TO_FILE:
         header = header + ['annotation']

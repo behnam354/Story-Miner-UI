@@ -34,9 +34,11 @@
 	
 </form>
 <div class='page' id='output'> 
-{% if table %}
+{% if tables %}
 	<div class="alert alert-success">Succeeded!</div>
-    {{ table|safe }}
+	{% for table in tables %}
+		{{ table|safe }}<br>
+	{% endfor %}
 {% endif %}
 </div>
 {% endblock %}

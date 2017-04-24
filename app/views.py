@@ -29,20 +29,38 @@ def index():
 		output = getOutput(form.text.data, form.showDataFrame.data)
 		return render_template('index.html',
 							   form = form,
-							   table = output)	
+							   tables = output)	
 	return render_template('index.html',
 						   form = form)
 
+
+def get_top_rels(all_rels,top_num=-1):
+    df = pd.DataFrame(columns = ['letter', 'count'])
+    cnt = Counter()
+    for r in all_rels:
+        cnt[r] += 1
+    if top_num == -1: # means print all
+        print "Frequent relations:"
+        for letter,count in cnt.most_common():
+            print letter, ": ", count
+            df.loc[len(df)] = [letter, count]
+    else:
+        print "top ", top_num, " frequent relations:"
+        for letter,count in cnt.most_common(top_num):
+            print letter, ": ", count
+            df.loc[len(df)] = [letter, count]
+    
+    return df
 
 def getOutput(text, checkbox):
 	'''
 	PARAMETERS
 	'''
-	SEPARATE_SENT = False 
+	SEPARATE_SENT = True 
 	SHOW_DP_PLOTS = False
 	SHOW_REL_EXTRACTIONS = False
 	NODE_SELECTION = False
-	MAX_ITERATION = 4 #-1 -> to try all
+	MAX_ITERATION = -1 #-> to try all
 	SAVE_GEFX = False
 	SAVE_PAIRWISE_RELS = True
 	SAVE_ALL_RELS = False 
@@ -72,32 +90,35 @@ def getOutput(text, checkbox):
 	start_time = time.time()
 
 	all_rels_str, all_rels, output = text_corpus_to_rels(file_input_arg,
-														 DATA_SET,
-														 INPUT_DELIMITER,
-														 input_fname,
-														 output_dir_arg,
-														 MAX_ITERATION,
-														 CLEAN_SENTENCES,
-														 SEPARATE_SENT,
-														 SHOW_DP_PLOTS,
-														 SHOW_REL_EXTRACTIONS,
-														 SAVE_ALL_RELS,
-														 EXTRACT_NESTED_PREPOSITIONS_RELS,
-														 SAVE_ANNOTATIONS_TO_FILE,
-														 LOAD_ANNOTATIONS,
-														 texts = texts
-														)   
+                                                         DATA_SET,
+                                                         INPUT_DELIMITER,
+                                                         input_fname,
+                                                         output_dir_arg,
+                                                         MAX_ITERATION,
+                                                         CLEAN_SENTENCES,
+                                                         SEPARATE_SENT,
+                                                         SHOW_DP_PLOTS,
+                                                         SHOW_REL_EXTRACTIONS,
+                                                         SAVE_ALL_RELS,
+                                                         EXTRACT_NESTED_PREPOSITIONS_RELS,
+                                                         SAVE_ANNOTATIONS_TO_FILE,
+                                                         LOAD_ANNOTATIONS,
+                                                         texts = texts
+                                                        )   
 																											
 	end_time = time.time()
 	print "Relation Extraction Time: ", end_time-start_time , "(seconds) - ", (end_time-start_time)/60, "(min)"
 	print "Total number of extracted relations: ", len(all_rels_str)
-	print_top_relations(all_rels_str,top_num=-1) 
+	df_top = get_top_rels(all_rels_str,top_num=-1) 
 	df_rels = pd.DataFrame(all_rels)
 	df_output = pd.DataFrame(output)
 
 	print df_rels
 	if len(df_rels):
-		return df_rels[['arg1', 'rel', 'arg2']].to_html(classes='table table-bordered table-striped table-hover table-condensed table-responsive')
+		return [df_rels[['arg1', 'rel', 'arg2']].to_html(classes='table table-bordered table-striped table-hover table-condensed table-responsive'),
+                        df_top.to_html(classes='table table-bordered table-striped table-hover table-condensed table-responsive')
+                        ]
 	else:
-		return df_rels.to_html(classes='table table-bordered table-striped table-hover table-condensed table-responsive')
+		return ["No relations achieved."]
 		
+

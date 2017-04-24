@@ -1,3 +1,3 @@
 sentence,arg1,rel,arg2,type,pattern,arg1_with_pos,rel_with_pos,arg2_with_pos,arg1_prepositions,rel_prepositions,arg2_prepositions
-Obama is the president. Omaba wins the election. Omaba wins the election.,{Omaba},{wins},the {election},SVO,"(nsubj, verb, dobj)",Omaba-NNP-6,wins-VBZ-7,the-DT-8 election-NN-9,,,
-Obama is the president. Omaba wins the election. Omaba wins the election.,{Omaba},{wins},the {election},SVO,"(nsubj, verb, dobj)",Omaba-NNP-6,wins-VBZ-7,the-DT-8 election-NN-9,,,
+Obama wins election. Obama loses election. Obama wins election. Obama loses election.,{Obama},{loses},{election},SVO,"(nsubj, verb, dobj)",Obama-NNP-5,loses-VBZ-6,election-NN-7,,,
+Obama wins election. Obama loses election. Obama wins election. Obama loses election.,{Obama},{loses},{election},SVO,"(nsubj, verb, dobj)",Obama-NNP-5,loses-VBZ-6,election-NN-7,,,
