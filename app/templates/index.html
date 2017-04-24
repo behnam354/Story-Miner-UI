@@ -6,12 +6,13 @@
         $('form').submit(function() {
             $(':submit').attr('disabled', 'disabled');
             document.getElementById("state").innerHTML = 'Processing... Please wait.';
+			document.getElementById("output").innerHTML = '';
         });
     });
 	$(document).ready(function () {
 		// Handler for .ready() called.
 		$('html, body').animate({
-			scrollTop: $('#output').offset().top
+			scrollTop: $('#state').offset().top
 		}, 'slow');
 	});
 </script>
@@ -22,7 +23,7 @@
 		{{form.text(rows='10', cols='100', id ='form', placeholder="Enter some contents in this field.", 
 					style='width: 100%;', class = 'form-control')}}
 			{% for error in form.text.errors %}
-				<div class="alert alert-danger">{{ error }}</div>
+				<div id='err' class="alert alert-danger">{{ error }}</div>
 			{% endfor %}
 	</p>
 	<p>{{ form.showDataFrame }} show DataFrame </p>
