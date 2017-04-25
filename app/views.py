@@ -7,8 +7,8 @@ import pandas as pd
 import sys
 import os
 
-path = 'app/Story-Miner-master/Story-Miner-master/final_version_relex/'
-data_dir = "app/Story-Miner-master/data/"
+path = 'app/Story-Miner/final_version_relex/'
+data_dir = "app/Story-Miner/data/"
 
 sys.path.insert(0, path + 'base-codes')
 sys.path.insert(0, path + 'data-specific-codes')
@@ -35,7 +35,7 @@ def index():
 
 
 def get_top_rels(all_rels,top_num=-1):
-    df = pd.DataFrame(columns = ['letter', 'count'])
+    df = pd.DataFrame(columns = ['rel', 'count'])
     cnt = Counter()
     for r in all_rels:
         cnt[r] += 1
@@ -50,6 +50,25 @@ def get_top_rels(all_rels,top_num=-1):
             print letter, ": ", count
             df.loc[len(df)] = [letter, count]
     
+    return df
+
+def count_entities(entities,top_num=-1):
+    df = pd.DataFrame(columns = ['entity', 'count'])
+    cnt = Counter()
+    for r in entities:
+        cnt[r] += 1
+    if top_num == -1: # means print all   
+        print "Frequent entities:"
+        for letter,count in cnt.most_common():
+            print letter, ": ", count
+            df.loc[len(df)] = [letter, count]
+    else:
+        print "top ", top_num, " frequent entities:"
+        for letter,count in cnt.most_common(top_num):
+            print letter, ": ", count
+            df.loc[len(df)] = [letter, count]
+
+
     return df
 
 def getOutput(text, checkbox):
@@ -112,11 +131,14 @@ def getOutput(text, checkbox):
 	df_top = get_top_rels(all_rels_str,top_num=-1) 
 	df_rels = pd.DataFrame(all_rels)
 	df_output = pd.DataFrame(output)
-
 	print df_rels
+	entities = list(df_rels['arg1']) + list(df_rels['arg2'])
+	df_entities = count_entities(entities,top_num=-1) 
 	if len(df_rels):
-		return [df_rels[['arg1', 'rel', 'arg2']].to_html(classes='table table-bordered table-striped table-hover table-condensed table-responsive'),
-                        df_top.to_html(classes='table table-bordered table-striped table-hover table-condensed table-responsive')
+                classes = 'table table-bordered'
+		return [df_rels[['arg1', 'rel', 'arg2']].to_html(classes=classes),
+                        df_top.to_html(classes=classes),
+                        df_entities.to_html(classes=classes)
                         ]
 	else:
 		return ["No relations achieved."]

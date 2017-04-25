@@ -1,0 +1,6 @@
+sentence,arg1,rel,arg2,type,pattern,arg1_with_pos,rel_with_pos,arg2_with_pos,arg1_prepositions,rel_prepositions,arg2_prepositions
+Obama wins the election.,{Obama},{wins},the {election},SVO,"(nsubj, verb, dobj)",Obama-NNP-1,wins-VBZ-2,the-DT-3 election-NN-4,,,
+Why Samsung Pay could gain an early lead in mobile payments,Samsung {Pay},Why could {gain},an early {lead},SVO,"(nsubj, verb, dobj)",Samsung-NNP-2 Pay-NNP-3,Why-WRB-1 could-MD-4 gain-VB-5,an-DT-6 early-JJ-7 lead-NN-8,,,
+Why Samsung Pay could gain an early lead in mobile payments,Samsung {Pay},Why could {gain},an early {lead},SVO,"(nsubj, verb, dobj)",Samsung-NNP-2 Pay-NNP-3,Why-WRB-1 could-MD-4 gain-VB-5,an-DT-6 early-JJ-7 lead-NN-8,,,
+Why Samsung Pay could gain an early lead in mobile payments,Samsung {Pay},Why could {gain},an early {lead},SVO,"(nsubj, verb, dobj)",Samsung-NNP-2 Pay-NNP-3,Why-WRB-1 could-MD-4 gain-VB-5,an-DT-6 early-JJ-7 lead-NN-8,,,
+Why Samsung Pay could gain an early lead in mobile payments,Samsung {Pay},Why could {gain},an early {lead},SVO,"(nsubj, verb, dobj)",Samsung-NNP-2 Pay-NNP-3,Why-WRB-1 could-MD-4 gain-VB-5,an-DT-6 early-JJ-7 lead-NN-8,,,
