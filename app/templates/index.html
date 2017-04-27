@@ -15,6 +15,7 @@
 			scrollTop: $('#state').offset().top
 		}, 'slow');
 	});
+	
 </script>
 
 <form action='' method='post' name='input'>
@@ -37,7 +38,12 @@
 {% if tables %}
 	<div class="alert alert-success">Succeeded!</div>
 	{% for table in tables %}
-		{{ table|safe }}
+		<h2 class="text-primary">{{titles[loop.index-1]}}</h2>
+<div>
+  <div style='overflow:scroll;max-height:420px;'>
+			{{ table|safe }}<br>
+   </div>
+</div>
 	{% endfor %}
 {% endif %}
 </div>

@@ -27,11 +27,13 @@ def index():
 	form = InputForm()
 	if form.validate_on_submit():
 		output = getOutput(form.text.data, form.showDataFrame.data)
+		titles = ["Extracted Relationships", "Ranking of the extractions", "Ranking of the Entities"]
 		return render_template('index.html',
-							   form = form,
-							   tables = output)	
+                                       form = form,
+                                       tables = output,
+                                       titles = titles)	
 	return render_template('index.html',
-						   form = form)
+                               form = form)
 
 
 def get_top_rels(all_rels,top_num=-1):
@@ -135,7 +137,7 @@ def getOutput(text, checkbox):
 	entities = list(df_rels['arg1']) + list(df_rels['arg2'])
 	df_entities = count_entities(entities,top_num=-1) 
 	if len(df_rels):
-                classes = 'table table-bordered'
+                classes = 'table table-bordered table-hover table-striped '
 		return [df_rels[['arg1', 'rel', 'arg2']].to_html(classes=classes),
                         df_top.to_html(classes=classes),
                         df_entities.to_html(classes=classes)
