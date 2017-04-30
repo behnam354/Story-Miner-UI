@@ -134,9 +134,10 @@ def getOutput(text, checkbox):
 	df_rels = pd.DataFrame(all_rels)
 	df_output = pd.DataFrame(output)
 	print df_rels
-	entities = list(df_rels['arg1']) + list(df_rels['arg2'])
-	df_entities = count_entities(entities,top_num=-1) 
+
 	if len(df_rels):
+                entities = list(df_rels['arg1']) + list(df_rels['arg2'])
+                df_entities = count_entities(entities,top_num=-1) 
                 classes = 'table table-bordered table-hover table-striped '
 		return [df_rels[['arg1', 'rel', 'arg2']].to_html(classes=classes),
                         df_top.to_html(classes=classes),
