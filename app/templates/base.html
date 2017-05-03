@@ -9,8 +9,12 @@
 
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
 		<link rel="stylesheet" type = 'text/css' href="{{ url_for('static', filename='css/styles.css') }}" />
-		<script src="static/js/jquery.js"></script>
-		<script src="static/js/bootstrap.js"></script>
+		<script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script src="{{ url_for('static', filename='js/graph.js') }}"></script>
+
+
 		<style>
 		.jumbotron {
 			margin-bottom: 0px;

@@ -1,0 +1,2 @@
+{Obama}	the {election}	{0: {'label': '{wins}-1'}}
+Samsung {Pay}	an early {lead}	{0: {'label': 'Why could {gain}-4'}}

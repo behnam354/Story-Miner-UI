@@ -39,12 +39,87 @@
 	<div class="alert alert-success">Succeeded!</div>
 	{% for table in tables %}
 		<h2 class="text-primary">{{titles[loop.index-1]}}</h2>
-<div>
-  <div style='overflow:scroll;max-height:420px;'>
-			{{ table|safe }}<br>
-   </div>
-</div>
+		<div>
+		  <div style='overflow:scroll;max-height:420px;'>
+					{{ table|safe }}<br>
+		   </div>
+		</div>
 	{% endfor %}
 {% endif %}
 </div>
+
+<div>
+<script src="{{ url_for('static', filename='js/sigma.js/src/sigma.core.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/conrad.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/utils/sigma.utils.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/utils/sigma.polyfills.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/sigma.settings.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/classes/sigma.classes.dispatcher.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/classes/sigma.classes.configurable.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/classes/sigma.classes.graph.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/classes/sigma.classes.camera.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/classes/sigma.classes.quad.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/captors/sigma.captors.mouse.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/captors/sigma.captors.touch.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/renderers/sigma.renderers.canvas.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/renderers/sigma.renderers.webgl.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/renderers/sigma.renderers.def.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/renderers/webgl/sigma.webgl.nodes.def.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/renderers/webgl/sigma.webgl.nodes.fast.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/renderers/webgl/sigma.webgl.edges.def.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/renderers/webgl/sigma.webgl.edges.fast.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/renderers/webgl/sigma.webgl.edges.arrow.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/renderers/canvas/sigma.canvas.labels.def.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/renderers/canvas/sigma.canvas.hovers.def.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/renderers/canvas/sigma.canvas.nodes.def.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/renderers/canvas/sigma.canvas.edges.def.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/renderers/canvas/sigma.canvas.edges.curve.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/renderers/canvas/sigma.canvas.edges.arrow.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/renderers/canvas/sigma.canvas.edges.curvedArrow.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/middlewares/sigma.middlewares.rescale.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/middlewares/sigma.middlewares.copy.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/misc/sigma.misc.animation.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/misc/sigma.misc.bindEvents.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/src/misc/sigma.misc.drawHovers.js') }}"></script>
+<!-- END SIGMA IMPORTS -->
+<script src="{{ url_for('static', filename='js/sigma.js/plugins/sigma.parsers.gexf/gexf-parser.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/plugins/sigma.parsers.gexf/sigma.parsers.gexf.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sigma.js/plugins/sigma.parsers.gexf/sigma.parsers.json.js') }}"></script>
+	
+	<script language = 'javascript'>
+	s = new sigma({
+        graph: graph,
+        container: 'graph-container',
+        settings: {
+            defaultNodeColor: '#ec5148'
+        },
+	function(sigmaInstance) {
+		sigmaInstance.graph.nodes().forEach(
+			function(node, i, a) {
+			  // On a circle:
+			  node.x = Math.cos(Math.PI * 2 * i / a.length);
+			  node.y = Math.sin(Math.PI * 2 * i / a.length);
+			  // Default size:
+			  node.size = 1;
+			}
+		);
+		sigmaInstance.refresh();
+	}
+	});
+
+	</script>
+
+	<style type="text/css">
+	  #graph-container {
+		max-width: 400px;
+		height: 400px;
+		margin: auto;
+	  }
+	</style>
+	<div id="graph-container"></div>
+
+
+</div>
+
+
 {% endblock %}
