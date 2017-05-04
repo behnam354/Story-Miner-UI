@@ -5,14 +5,9 @@ from wtforms.validators import DataRequired
 class InputForm(Form):
     text = TextAreaField('Text',
                          validators=[DataRequired()],
-                         default='''Obama is the president of US.
-Obama wins the election.
-Why Samsung Pay could gain an early lead in mobile payments
-Why Samsung Pay could gain an early lead in mobile payments
-Why Samsung Pay could gain an early lead in mobile payments
-Mobile payment processes that can literally be brought in a back pocket to a customer site will help to keep all payments in the same place
-Why Samsung Pay could gain an early lead in mobile payments
-yes very much appreciated. I think when you have the correct resolution, Apple Pay live (with no payment limit) (1/2)
+                         default='''UCLA Big Data Group introduces Strands. Strands automatically extracts narratives from social media. This demo page shows relationships extracted by Strands. In this demo relationships are in form of (subject, verb, object).
+
+Given the text available in this box as input; automatically Strands extracts narratives. The contents get separated into sentences.
 '''
                          
 )

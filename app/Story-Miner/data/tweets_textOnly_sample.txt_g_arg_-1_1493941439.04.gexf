@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf version="1.1" xmlns="http://www.gexf.net/1.1draft" xmlns:viz="http://www.gexf.net/1.1draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema-instance">
+  <graph defaultedgetype="directed" mode="static">
+    <attributes class="edge" mode="static">
+      <attribute id="0" title="networkx_key" type="integer" />
+      <attribute id="1" title="label" type="string" />
+    </attributes>
+    <nodes>
+      <node id="This demo {page}" label="This demo {page}" />
+      <node id="{relationships} extracted" label="{relationships} extracted" />
+      <node id="UCLA Big Data {Group}" label="UCLA Big Data {Group}" />
+      <node id="{Strands}" label="{Strands}" />
+      <node id="{narratives}" label="{narratives}" />
+    </nodes>
+    <edges>
+      <edge id="0" source="This demo {page}" target="{relationships} extracted">
+        <attvalues>
+          <attvalue for="0" value="0" />
+          <attvalue for="1" value="{shows}-1" />
+        </attvalues>
+      </edge>
+      <edge id="1" source="UCLA Big Data {Group}" target="{Strands}">
+        <attvalues>
+          <attvalue for="0" value="0" />
+          <attvalue for="1" value="{introduces}-1" />
+        </attvalues>
+      </edge>
+      <edge id="2" source="{Strands}" target="{narratives}">
+        <attvalues>
+          <attvalue for="0" value="0" />
+          <attvalue for="1" value="automatically {extracts}-1" />
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>
