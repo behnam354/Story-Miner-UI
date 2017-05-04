@@ -6,6 +6,9 @@ from networkx.readwrite.json_graph import node_link_data
 import sys
 import os
 
+import json
+
+pd.set_option('display.max_colwidth', -1)
 path = 'app/Story-Miner/final_version_relex/'
 data_dir = "app/Story-Miner/data/"
 
@@ -25,14 +28,18 @@ from utility_functions import *
 def index():
     form = InputForm()
     if form.validate_on_submit():
-        tables, titles, graph = getOutput(form.text.data, form.showDataFrame.data)
-        
-        return render_template('index.html',
+        try:
+            tables, titles, graph, graphTitle = getOutput(form.text.data, form.showDataFrame.data)
+            return render_template('index.html',
                                         form = form,
                                         tables = tables,
                                         titles = titles,
-                                        graph = graph
+                                        graph = graph,
+                                        graphTitle = graphTitle
                                         )    
+        except:
+           return render_template('index.html', form = form)
+
     return render_template('index.html', form = form)
 
 
@@ -96,7 +103,6 @@ def getOutput(text, checkbox):
     
 
     print text
-    text = text.encode('UTF-8')
     if '\r\n' in text:
         texts = text.split('\r\n')
     elif '\n' in text:
@@ -156,8 +162,8 @@ def getOutput(text, checkbox):
             df_top.to_html(classes=classes),
             df_entities.to_html(classes=classes)
             ], ["Extracted Relationships",
-                "Ranking of the Extractions",
-                "Ranking of the Entities"], node_link_data(g_arg)
+                "Ranking of the Extractions",
+                "Ranking of the Entities"], json.dumps(node_link_data(g_arg)), 'Graph'
     else:
         return ["No relations achieved."]
         

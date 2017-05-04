@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf version="1.1" xmlns="http://www.gexf.net/1.1draft" xmlns:viz="http://www.gexf.net/1.1draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema-instance">
+  <graph defaultedgetype="directed" mode="static">
+    <attributes class="edge" mode="static">
+      <attribute id="0" title="networkx_key" type="integer" />
+      <attribute id="1" title="label" type="string" />
+    </attributes>
+    <nodes>
+      <node id="the {election}" label="the {election}" />
+      <node id="{Obama}" label="{Obama}" />
+      <node id="Samsung {Pay}" label="Samsung {Pay}" />
+      <node id="an early {lead}" label="an early {lead}" />
+    </nodes>
+    <edges>
+      <edge id="0" source="{Obama}" target="the {election}">
+        <attvalues>
+          <attvalue for="0" value="0" />
+          <attvalue for="1" value="{wins}-1" />
+        </attvalues>
+      </edge>
+      <edge id="1" source="Samsung {Pay}" target="an early {lead}">
+        <attvalues>
+          <attvalue for="0" value="0" />
+          <attvalue for="1" value="Why could {gain}-4" />
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>
