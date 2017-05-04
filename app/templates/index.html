@@ -114,8 +114,11 @@
 			   .attr({"x":function(d){return d.x;},
 					  "y":function(d){return d.y;},
 					  "class":"nodelabel",
-					  "stroke":"black"})
+					  "stroke":"black",
+					  'transform': 'translate(10, -10)'
+					  })
 			   .text(function(d){return d.id;});
+			   
 
 			var edgepaths = svg.selectAll(".edgepath")
 				.data(dataset.links)
