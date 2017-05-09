@@ -5,6 +5,7 @@
     padding-bottom: 100%; /* aspect ratio */
     vertical-align: top;
     overflow: hidden;
+	background-color:#fff;
 }
 .svg-content-responsive {
     display: inline-block;
@@ -12,3 +13,4 @@
     top: 10px;
     left: 0;
 }
+

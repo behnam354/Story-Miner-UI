@@ -89,7 +89,7 @@ def getOutput(text, checkbox):
     SHOW_REL_EXTRACTIONS = False
     NODE_SELECTION = False
     MAX_ITERATION = -1 #-> to try all
-    SAVE_GEFX = True
+    SAVE_GEFX = False
     SAVE_PAIRWISE_RELS = True
     SAVE_ALL_RELS = False 
     CLEAN_SENTENCES = False

@@ -561,4 +561,4 @@ def rels_to_network(df_rels,
     if SAVE_PAIRWISE_RELS:
         file_loc = output_dir_arg + input_fname + "_"  + "pairwise_rels_"+str(MAX_ITERATION)+"_"+DATA_SET+".txt"
         save_pairwise_rels(file_loc,g_arg,print_option=True)  
-	return g_arg
+    return g_arg
