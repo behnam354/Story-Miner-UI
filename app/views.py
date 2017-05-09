@@ -29,13 +29,23 @@ def index():
     form = InputForm()
     if form.validate_on_submit():
         try:
-            tables, titles, graph, graphTitle = getOutput(form.text.data, form.showDataFrame.data)
+            tables = None
+            titles = None
+            graph = None
+            graphTitle = None
+            state = None
+            output = getOutput(form.text.data, form.showDataFrame.data)
+            if output:
+                tables, titles, graph, graphTitle = output
+            else:
+                state = "No relationships extracted." 
             return render_template('index.html',
                                         form = form,
                                         tables = tables,
                                         titles = titles,
                                         graph = graph,
-                                        graphTitle = graphTitle
+                                        graphTitle = graphTitle,
+                                        state = state
                                         )    
         except:
            return render_template('index.html', form = form)
@@ -141,8 +151,9 @@ def getOutput(text, checkbox):
     df_output = pd.DataFrame(output)
     print df_rels
 
-
-    g_arg = rels_to_network(df_rels,
+    if len(df_rels):
+        print len(df_rels)
+        g_arg = rels_to_network(df_rels,
                             input_fname,
                             output_dir_arg,
                             MAX_ITERATION,
@@ -152,9 +163,7 @@ def getOutput(text, checkbox):
                             SAVE_PAIRWISE_RELS,
                             SHOW_ARGUMENT_GRAPH
                            )
-    
-    
-    if len(df_rels):
+
         entities = list(df_rels['arg1']) + list(df_rels['arg2'])
         df_entities = count_entities(entities,top_num=-1) 
         classes = 'table table-bordered table-hover table-striped '
@@ -165,6 +174,6 @@ def getOutput(text, checkbox):
                 "Ranking of the Extractions",
                 "Ranking of the Entities"], json.dumps(node_link_data(g_arg)), 'Graph'
     else:
-        return ["No relations achieved."]
+        return None
         
         
