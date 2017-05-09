@@ -1,1 +1,4 @@
 sentence,arg1,rel,arg2,type,pattern,arg1_with_pos,rel_with_pos,arg2_with_pos,arg1_prepositions,rel_prepositions,arg2_prepositions
+UCLA Big Data Group introduces Strands.,UCLA Big Data {Group},{introduces},{Strands},SVO,"(nsubj, verb, dobj)",UCLA-NNP-1 Big-NNP-2 Data-NNP-3 Group-NNP-4,introduces-VBZ-5,Strands-NNS-6,,,
+Strands automatically extracts narratives from social media.,{Strands},automatically {extracts},{narratives},SVO,"(nsubj, verb, dobj)",Strands-NNS-1,automatically-RB-2 extracts-VBZ-3,narratives-NNS-4,,,
+This demo page shows relationships extracted by Strands.,This demo {page},{shows},{relationships} extracted,SVO,"(nsubj, verb, dobj)",This-DT-1 demo-NN-2 page-NN-3,shows-VBZ-4,relationships-NNS-5 extracted-VBN-6,,,
