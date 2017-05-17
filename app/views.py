@@ -34,9 +34,20 @@ def index():
             graph = None
             graphTitle = None
             state = None
-            output = getOutput(form.text.data, form.showDataFrame.data)
+            checkTable = [form.showRels.data,
+                        form.rankRels.data,
+                        form.rankEntities.data]
+            checkGraph = form.showGraph.data
+            
+            output = getOutput(form.text.data)
             if output:
                 tables, titles, graph, graphTitle = output
+                tables = [tables[i] for i, v in enumerate(checkTable) if v == True]
+                titles = [titles[i] for i, v in enumerate(checkTable) if v == True]
+                if not checkGraph:
+                    graph = None
+                    graphTitle = None
+                state = "Succeeded!"
             else:
                 state = "No relationships extracted." 
             return render_template('index.html',
@@ -90,7 +101,7 @@ def count_entities(entities,top_num=-1):
 
     return df
 
-def getOutput(text, checkbox):
+def getOutput(text):
     '''
     PARAMETERS
     '''

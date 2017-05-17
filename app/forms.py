@@ -11,4 +11,7 @@ Given the text available in this box as input; automatically Strands extracts na
 '''
                          
 )
-    showDataFrame = BooleanField('showDataFrame', default=False)
+    showRels = BooleanField('show relationships', default=True)
+    rankRels = BooleanField('rank relationships', default=True)
+    rankEntities = BooleanField('rank entities', default=True)
+    showGraph = BooleanField('show graph', default=True)
