@@ -1,7 +1,6 @@
 	function drawGraph(dataset){
 			// parameters
-			w = 500
-			h = 500
+
 			var linkDistance=300;
 			var colors = d3.scale.category10();
 			
@@ -53,7 +52,6 @@
 			var force = d3.layout.force()
 				.nodes(dataset.nodes)
 				.links(dataset.links)
-				.size([w,h])
 				.linkDistance([linkDistance])
 				.charge([-500])
 				.theta(0.1)
