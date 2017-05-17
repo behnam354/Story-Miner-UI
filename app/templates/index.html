@@ -47,10 +47,9 @@
 	{% endfor %}
 	
 	
-	
-	<div id = 'chartId'>	
-		<h2 class="text-primary">{{graphTitle}}</h2>
-		
+	<h2 class="text-primary">{{graphTitle}}</h2>
+	<p> Note: You may zoom the graph and drag the nodes. </p>
+	<div id = 'chartId' style = 'box-shadow: inset 0 0 1em #ccc, 0 0 1em #fff;'>	
 		<script>
 			// get json data
 			var jsondata = {{graph|tojson}}
