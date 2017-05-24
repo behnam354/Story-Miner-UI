@@ -1,7 +1,6 @@
 	function drawGraph(dataset){
 			// parameters
-
-			var linkDistance=300;
+			var linkDistance=200;
 			var colors = d3.scale.category10();
 			
 			// zoom
@@ -35,8 +34,10 @@
 			// svg
 			var svg = d3.select("div#chartId")
 			   .append("div")
+			   			   .style('background-color','red')
 			   .classed("svg-container", true) //container class to make it responsive
 			   .append("svg")
+
 			   //responsive SVG needs these 2 attributes and no width and height attr
 			   .attr("preserveAspectRatio", "xMinYMin meet")
 			   .attr("viewBox", "0 0 600 400")
@@ -223,11 +224,11 @@
 				var neighborIdx = [d.index];
 				var linkIdx = [];
 				links.each(function(l, idx) {
-					if(l.source == d || l.target == d){
-						neighborArray.indexOf(l.source) == -1 ? neighborArray.push(l.source) && neighborIdx.push(l.source.index) : null;
-						neighborArray.indexOf(l.target) == -1 ? neighborArray.push(l.target) && neighborIdx.push(l.target.index): null;
-						linkArray.push(l);
-						linkIdx.push(idx);
+					if(l.source == d && l.source != l.target){
+						neighborArray.indexOf(l.target) == -1 ? neighborArray.push(l.target) && neighborIdx.push(l.target.index) && linkArray.push(l) && linkIdx.push(idx): null;			
+					}
+					if(l.target == d && l.source != l.target){
+						neighborArray.indexOf(l.source) == -1 ? neighborArray.push(l.source) && neighborIdx.push(l.source.index) && linkArray.push(l) && linkIdx.push(idx): null;
 					}
 				})
 				

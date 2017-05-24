@@ -225,11 +225,11 @@
 				var neighborIdx = [d.index];
 				var linkIdx = [];
 				links.each(function(l, idx) {
-					if(l.source == d || l.target == d){
-						neighborArray.indexOf(l.source) == -1 ? neighborArray.push(l.source) && neighborIdx.push(l.source.index) : null;
-						neighborArray.indexOf(l.target) == -1 ? neighborArray.push(l.target) && neighborIdx.push(l.target.index): null;
-						linkArray.push(l);
-						linkIdx.push(idx);
+					if(l.source == d && l.source != l.target){
+						neighborArray.indexOf(l.target) == -1 ? neighborArray.push(l.target) && neighborIdx.push(l.target.index) && linkArray.push(l) && linkIdx.push(idx): null;			
+					}
+					if(l.target == d && l.source != l.target){
+						neighborArray.indexOf(l.source) == -1 ? neighborArray.push(l.source) && neighborIdx.push(l.source.index) && linkArray.push(l) && linkIdx.push(idx): null;
 					}
 				})
 				
