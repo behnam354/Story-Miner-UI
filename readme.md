@@ -12,7 +12,8 @@ The graph is implemented with [D3.v3.js](https://d3js.org/).
 
 ### Dependencies
 * practnlptools 
-download from https://github.com/biplab-iitb/practNLPTools
+
+can be downloaded from https://github.com/biplab-iitb/practNLPTools
 ```
 	python setup.py install
 ```
