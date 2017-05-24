@@ -7,9 +7,8 @@ in the text, three tables will show up and display the extracted relationships, 
 and ranking of the entities respectively. To make the result vivid, a graph is developed to display the 
 entities as nodes and relationships as links.     
 
-The demo page for entity relationship extraction is developed with Flask as the backend and its Jinjia2 template 
-as the frontend. The result tables are simply converted from dataframes of pandas library with to_html method. 
-The graph is implemented with D3.v3.js.
+The demo page for entity relationship extraction is developed with [Flask](http://flask.pocoo.org/docs/0.12/).  
+The graph is implemented with [D3.v3.js](https://d3js.org/).
 
 ### Dependencies
 * practnlptools 
@@ -33,10 +32,6 @@ download from https://github.com/biplab-iitb/practNLPTools
 ```
 
 
-
-Here are some resources for [Flask](http://flask.pocoo.org/docs/0.12/) and 
-[D3.js](https://www.youtube.com/watch?v=n5NcCoa9dDU&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p). 
-You may find more examples and tutorials online. 
 
 ### Usage
 ```
