@@ -11,9 +11,7 @@ The demo page for entity relationship extraction is developed with [Flask](http:
 The graph is implemented with [D3.v3.js](https://d3js.org/).
 
 ### Dependencies
-* practnlptools 
-
-can be downloaded from https://github.com/biplab-iitb/practNLPTools
+* practnlptools can be downloaded from https://github.com/biplab-iitb/practNLPTools
 ```
 	python setup.py install
 ```
