@@ -1,10 +1,10 @@
 	function drawGraph(dataset){
 			// parameters
-			var w = 500;
-			var h = 600;
-			var dx = 30;
-			var dy = -10;
-			var r = 15;
+			var w = 500;//canvas
+			var h = 600;//canvas
+			var dx = 30;//edgeLabel relative position
+			var dy = -10;//edgeLabel relative position
+			var r = 15;//radius
 			var fontSize = 15;
 			var defaultColor = '#ccc'
 			//var linkDistance=200;
