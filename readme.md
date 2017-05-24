@@ -40,3 +40,4 @@ See the webpage at http://localhost:5000
 
 
 ### Appearance
+![indexPage](https://github.com/behnam354/Story-Miner-UI/app/static/img/indexPage.jpg)
