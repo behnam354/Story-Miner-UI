@@ -31,15 +31,8 @@ download from https://github.com/biplab-iitb/practNLPTools
 	sudo pip install Flask
 	sudo pip install flask_wtf
 ```
-* JQuery, 
-Bootstrap, 
-D3.v3.js  
-```
-	//Add them to the html page directly.
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="https://d3js.org/d3.v3.min.js"></script>
-```
+
+
 
 Here are some resources for [Flask](http://flask.pocoo.org/docs/0.12/) and 
 [D3.js](https://www.youtube.com/watch?v=n5NcCoa9dDU&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p). 
