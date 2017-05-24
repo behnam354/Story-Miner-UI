@@ -28,15 +28,11 @@ download from https://github.com/biplab-iitb/practNLPTools
 * nltk: 	
 ```
 	sudo pip install nltk
-```
-```
 	python -m nltk.downloader all
 ```
 * Flask 0.10.1 
 ```
 	sudo pip install Flask
-```
-```
 	sudo pip install flask_wtf
 ```
 * JQuery, 
