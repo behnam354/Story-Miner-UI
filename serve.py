@@ -1,6 +1,6 @@
 from app import app
 from daemon import Daemon
-
+import sys
 
 
 class MyDaemon(Daemon):
@@ -22,5 +22,5 @@ if __name__ == "__main__":
             sys.exit(2)
         sys.exit(0)
     else:
-        print "usage: %s start|stop|restart" % sys.argv[0]
+        print "usage: python %s start|stop|restart" % sys.argv[0]
         sys.exit(2)
