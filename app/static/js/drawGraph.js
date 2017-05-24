@@ -1,6 +1,13 @@
 	function drawGraph(dataset){
 			// parameters
-			var linkDistance=200;
+			var w = 500;
+			var h = 600;
+			var dx = 30;
+			var dy = -10;
+			var r = 15;
+			var fontSize = 15;
+			var defaultColor = '#ccc'
+			//var linkDistance=200;
 			var colors = d3.scale.category10();
 			
 			// zoom
@@ -20,6 +27,8 @@
 			function dragstarted(d) {
 			  d3.event.sourceEvent.stopPropagation();			  
 			  d3.select(this).classed("dragging", true);
+			  // deregister listeners
+              d3.select(this).on("mouseover", null).on("mouseout", null); 
 			  force.start();
 			}
 
@@ -29,15 +38,17 @@
 
 			function dragended(d) {			  
 			  d3.select(this).classed("dragging", false);
+			  //reregisters listeners
+              d3.select(this).on("mouseover", mouseover).on("mouseout", mouseout); 
 			}
 
 			// svg
 			var svg = d3.select("div#chartId")
 			   .append("div")
-			   			   .style('background-color','red')
+			   //.style('background-color',defaultColor)
 			   .classed("svg-container", true) //container class to make it responsive
 			   .append("svg")
-
+			   //.attr({"width":w,"height":h})
 			   //responsive SVG needs these 2 attributes and no width and height attr
 			   .attr("preserveAspectRatio", "xMinYMin meet")
 			   .attr("viewBox", "0 0 600 400")
@@ -53,7 +64,9 @@
 			var force = d3.layout.force()
 				.nodes(dataset.nodes)
 				.links(dataset.links)
-				.linkDistance([linkDistance])
+				.size([w,h])
+				//.linkDistance([linkDistance])
+				.linkDistance(function(d){return d.label.length * 10 + dx * 2;})
 				.charge([-500])
 				.theta(0.1)
 				.gravity(0.05)
@@ -66,7 +79,7 @@
 			  .append("line")
 			  .attr("id",function(d,i) {return 'edge'+i})
 			  .attr('marker-end','url(#arrowhead)')
-			  .style("stroke","#ccc")
+			  .style("stroke",defaultColor)
 			  .style("pointer-events", "none");
 			
 			// vertexes
@@ -74,7 +87,7 @@
 			  .data(dataset.nodes)
 			  .enter()
 			  .append("circle")
-			  .attr({"r":15})
+			  .attr({"r":r})
 			  .style("fill",function(d,i){return colors(i);})
 			  .call(drag)
 
@@ -83,7 +96,7 @@
 			   .data(dataset.nodes)
 			   .enter()
 			   .append("text")
-			   .attr({'font-size':15,
+			   .attr({'font-size':fontSize,
 					  "x":function(d){return d.x;},
 					  "y":function(d){return d.y;},
 					  "class":"nodelabel",
@@ -114,10 +127,10 @@
 				.style("pointer-events", "none")
 				.attr({'class':'edgelabel',
 					   'id':function(d,i){return 'edgelabel'+i},
-					   'dx':50,
-					   'dy':-10,
-					   'font-size':15,
-					   'fill':'#ccc'});
+					   'dx':dx,
+					   'dy':dy,
+					   'font-size':fontSize,
+					   'fill':defaultColor});
 
 			edgelabels.append('textPath')
 				.attr('xlink:href',function(d,i) {return '#edgepath'+i})
@@ -137,8 +150,8 @@
 					   'xoverflow':'visible'})
 				.append('svg:path')
 					.attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-					.attr('fill', '#ccc')
-					.attr('stroke','#ccc');
+					.attr('fill', defaultColor)
+					.attr('stroke', defaultColor);
 			
 			// black arrow head 
 			svg.append('defs').append('marker')
@@ -180,7 +193,7 @@
 					d3.select(this)
 					.transition()
 					.duration(duration)
-					.style('r', j == 0? 25: 15)
+					.style('r', j == 0? 25: r)
 					.style("opacity", j > -1 ? 1 : .25)
 					.style("stroke-width", j > -1 ? 3 : 1)
 					.style("stroke", j > -1 ? "blue" : "white")
@@ -193,7 +206,7 @@
 					.duration(duration)
 					.style("opacity", j > -1 ? 1 : .25)
 					.style("stroke-width", j > -1 ? 2 : 1)
-					.style("stroke", j > -1 ? "black" : "#ccc")
+					.style("stroke", j > -1 ? "black" : defaultColor)
 					.style('marker-end', j > -1? 'url(#arrowhead1)':'url(#arrowhead)' )
 				});	
 				// set active node labels
@@ -203,7 +216,7 @@
 					.transition()
 					.duration(duration)					
 					.style("opacity", j > -1 ? 1 : .25)
-					.style("font-size", j > -1 ? 20 : 15)
+					.style("font-size", j > -1 ? 20 : fontSize)
 				});
 				// set active edge labels
 				edgelabels.each(function(p, idx){
@@ -211,7 +224,7 @@
 					d3.select(this)
 					.transition()
 					.duration(duration)	
-					.style("stroke", j > -1 ? "black" : "#ccc")
+					.style("stroke", j > -1 ? "black" : defaultColor)
 					.style("opacity", j > -1 ? 1 : .25)
 					//.style("font-size", j > -1 ? 20 : 15)
 				})
@@ -237,16 +250,18 @@
 				return dic;
 			} 
 			
-			nodes.on('mouseover', function(d, i) {
+			var mouseover = function(d, i) {
 			  highlightNeighbors(d, i);
-			});
-
-			nodes.on('mouseout', function() {
+			}
+			
+			nodes.on('mouseover', mouseover);
+			
+			var mouseout = function() {
 			
 			    d3.selectAll('circle')
 			  		.transition()
 					.duration(duration)
-					.style('r', 15)
+					.style('r', r)
 					.style("opacity", 1)
 					.style("stroke-width", 1)
 					.style("stroke", "white");
@@ -255,19 +270,21 @@
 					.duration(duration)
 					.style("opacity", 1)
 					.style("stroke-width", 1)
-					.style("stroke", "#ccc")
+					.style("stroke", defaultColor)
 					.style('marker-end', 'url(#arrowhead)' );
 				d3.selectAll('.nodelabel')
 					.transition()
 					.duration(duration)					
 					.style("opacity", 1)
-					.style("font-size", 15);
+					.style("font-size", fontSize);
 				d3.selectAll('.edgelabel')
 					.transition()
 					.duration(duration)	
-					.style("stroke",  "#ccc")
+					.style("stroke",  defaultColor)
 					.style("opacity", 1)
-			});
+			}
+			
+			nodes.on('mouseout', mouseout);
 
 			force.on("tick", function(){
 
