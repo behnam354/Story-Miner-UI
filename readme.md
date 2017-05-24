@@ -46,3 +46,5 @@ To deploy on the server:
 
 ### Appearance
 ![indexPage](app/static/img/indexPage.jpg)
+![indexPage](app/static/img/tables.JPG)
+![indexPage](app/static/img/graph.JPG)
