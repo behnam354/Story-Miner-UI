@@ -45,4 +45,4 @@ To deploy on the server:
 ```
 
 ### Appearance
-![indexPage](https://raw.githubusercontent.com/behnam354/Story-Miner-UI/app/static/img/indexPage.jpg)
+![indexPage](app/static/img/indexPage.jpg)
