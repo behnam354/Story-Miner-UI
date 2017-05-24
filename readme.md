@@ -50,7 +50,7 @@ You may find more examples and tutorials online.
 ```
 	python run.py
 ```
-See http://localhost:5000
+See the webpage at http://localhost:5000
 
 
 ### Appearance
