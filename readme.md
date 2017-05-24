@@ -33,11 +33,16 @@ The graph is implemented with [D3.v3.js](https://d3js.org/).
 
 
 ### Usage
+For local test
 ```
 	python run.py
 ```
 See the webpage at http://localhost:5000
 
+To deploy on the server:
+```
+	python serve.py start | stop | restart
+```
 
 ### Appearance
-![indexPage](https://github.com/behnam354/Story-Miner-UI/app/static/img/indexPage.jpg)
+![indexPage](https://raw.githubusercontent.com/behnam354/Story-Miner-UI/app/static/img/indexPage.jpg)
