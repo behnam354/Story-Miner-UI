@@ -49,7 +49,8 @@ You may find more examples and tutorials online.
 ### Usage
 ```
 	python run.py
-	see http://localhost:5000
 ```
+See http://localhost:5000
+
 
 ### Appearance
