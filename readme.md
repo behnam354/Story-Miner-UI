@@ -1,7 +1,6 @@
 Story Analysis UI Demo
 =======
 
-### Introduction
 This demo page is for entity relationship extraction. The user may input some texts in the textarea and get 
 the entities and relationships in the texts by simply clicking the submit button. If any relationships found 
 in the text, three tables will show up and display the extracted relationships, ranking of the extractions, 
