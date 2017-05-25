@@ -46,11 +46,11 @@ To deploy on the server:
 
 ### Appearance
 
-####index page:
+#### index page:
 ![indexPage](app/static/img/indexPage.jpg)
 
-####table:
+#### table:
 ![indexPage](app/static/img/tables.JPG)
 
-####graph:
+#### graph:
 ![indexPage](app/static/img/graph.JPG)
