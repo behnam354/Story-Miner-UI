@@ -17,6 +17,26 @@ data_dir = os.path.join(curdir, app.config['DATA_DIR'])
 sys.path.insert(0, main_functions_dir)
 from main_functions import *
 
+'''
+PARAMETERS
+'''
+SEPARATE_SENT = app.config['SEPARATE_SENT']
+SHOW_DP_PLOTS = app.config['SHOW_DP_PLOTS']
+SHOW_REL_EXTRACTIONS = app.config['SHOW_REL_EXTRACTIONS']
+NODE_SELECTION = app.config['NODE_SELECTION']
+MAX_ITERATION = app.config['MAX_ITERATION']
+SAVE_GEFX = app.config['SAVE_GEFX']
+SAVE_PAIRWISE_RELS = app.config['SAVE_PAIRWISE_RELS']
+SAVE_ALL_RELS = app.config['SAVE_ALL_RELS']
+CLEAN_SENTENCES = app.config['CLEAN_SENTENCES']
+SET_INOUT_LOC_FROM_PYTHON_ARGS = app.config['SET_INOUT_LOC_FROM_PYTHON_ARGS']
+SHOW_ARGUMENT_GRAPH = app.config['SHOW_ARGUMENT_GRAPH']
+EXTRACT_NESTED_PREPOSITIONS_RELS = app.config['EXTRACT_NESTED_PREPOSITIONS_RELS']
+DATA_SET = app.config['DATA_SET']
+INPUT_DELIMITER = app.config['INPUT_DELIMITER']
+SAVE_ANNOTATIONS_TO_FILE = app.config['SAVE_ANNOTATIONS_TO_FILE']
+LOAD_ANNOTATIONS = app.config['LOAD_ANNOTATIONS']
+
 
 
 @app.route('/' , methods=['GET', 'POST'])
@@ -98,26 +118,6 @@ def count_entities(entities,top_num=-1):
     return df
 
 def getOutput(text):
-    '''
-    PARAMETERS
-    '''
-    SEPARATE_SENT = True 
-    SHOW_DP_PLOTS = False
-    SHOW_REL_EXTRACTIONS = False
-    NODE_SELECTION = False
-    MAX_ITERATION = -1 #-> to try all
-    SAVE_GEFX = False
-    SAVE_PAIRWISE_RELS = True
-    SAVE_ALL_RELS = False 
-    CLEAN_SENTENCES = False
-    SET_INOUT_LOC_FROM_PYTHON_ARGS = False
-    SHOW_ARGUMENT_GRAPH = False
-    EXTRACT_NESTED_PREPOSITIONS_RELS = False
-    DATA_SET = "sentence_only"
-    INPUT_DELIMITER = "\n"
-    SAVE_ANNOTATIONS_TO_FILE = False
-    LOAD_ANNOTATIONS = False
-    
 
     print text
     if '\r\n' in text:
