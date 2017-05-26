@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class = 'text-center'>
+  <div class="alert alert-warning well">
+	<h1>Page Not Found</h1>
+	<p>What you were looking for is just not there.</p>
+  </div>
+  <h2><a href="{{ url_for('index') }}"><u>Back to demo</u></a><h2>
+</div>
+{% endblock %}

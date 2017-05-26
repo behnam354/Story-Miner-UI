@@ -5,21 +5,19 @@ import pandas as pd
 from networkx.readwrite.json_graph import node_link_data
 import sys
 import os
-
+import os.path
+import time
 import json
 
 pd.set_option('display.max_colwidth', -1)
-path = 'app/Story-Miner/final_version_relex/'
-data_dir = "app/Story-Miner/data/"
+
+curdir = os.path.dirname(__file__) + '/'
+path = curdir + 'Story-Miner/final_version_relex/'
+data_dir = curdir + "Story-Miner/data/"
 
 sys.path.insert(0, path + 'base-codes')
-sys.path.insert(0, path + 'data-specific-codes')
-sys.path.insert(0, path + 'utility-codes')
 
-from init import *
 from main_functions import *
-from utility_functions import *
-
 
 
 
@@ -61,7 +59,7 @@ def index():
                                         state = state
                                         )    
         except:
-           return render_template('index.html', form = form)
+           abort(500)
 
     return render_template('index.html', form = form)
 
@@ -189,4 +187,12 @@ def getOutput(text):
     else:
         return None
         
-        
+@app.errorhandler(500)
+
+def page_not_found(e):
+    return render_template('500.html'), 500   
+
+@app.errorhandler(404)
+
+def page_not_found(e):
+    return render_template('404.html'), 404   
