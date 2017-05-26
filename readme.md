@@ -48,7 +48,7 @@ See the webpage at http://localhost:5000
 
 ### Appearance
 
-#### index page:
+#### index page http://big-data.ee.ucla.edu/demo/:
 ![indexPage](app/static/img/indexPage.jpg)
 
 #### table:
