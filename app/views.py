@@ -10,10 +10,21 @@ import time
 import json
 
 pd.set_option('display.max_colwidth', -1)
+curdir = os.path.dirname(__file__) 
+main_functions_dir = app.config['MAIN_FUNCTIONS_DIR_NEW']
+data_dir = app.config['DATA_DIR_NEW']
 
-curdir = os.path.dirname(__file__)
-main_functions_dir = os.path.join(curdir, app.config['MAIN_FUNCTIONS_DIR'])
-data_dir = os.path.join(curdir, app.config['DATA_DIR'])
+if not main_functions_dir:
+    print "main_function_dir_default"
+    main_functions_dir = os.path.join(curdir, app.config['MAIN_FUNCTIONS_DIR_DEFAULT'])
+else:
+    print "main_function_dir_new"
+if not data_dir:
+    print "data_dir_default"
+    data_dir = os.path.join(curdir, app.config['DATA_DIR_DEFAULT'])
+else:
+    print "main_function_dir_new"
+    
 sys.path.insert(0, main_functions_dir)
 from main_functions import *
 

@@ -12,9 +12,16 @@ LOCAL_PORT = 5000
 SERVE_HOST = '0.0.0.0'
 SERVE_PORT = 5000
 
-# backend
-MAIN_FUNCTIONS_DIR = 'Story-Miner/final_version_relex/base-codes/'
-DATA_DIR = 'Story-Miner/data/'
+# backend default path
+MAIN_FUNCTIONS_DIR_DEFAULT = 'Story-Miner/final_version_relex/base-codes/'
+DATA_DIR_DEFAULT = 'Story-Miner/data/'
+
+
+
+# replace default path with new absolute path
+MAIN_FUNCTIONS_DIR_NEW = '' 
+DATA_DIR_NEW = ''
+
 
 # parameters
 SEPARATE_SENT = True 
