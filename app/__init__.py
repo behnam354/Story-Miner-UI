@@ -1,10 +1,8 @@
 from flask import Flask
 
+# create app
 app = Flask(__name__)
+app.static_folder = 'static'
 app.config.from_object('config')
 
-app.static_folder = 'static'
 from app import views
-
-if __name__ == "__main__":
-    app.run()

@@ -11,19 +11,15 @@ import json
 
 pd.set_option('display.max_colwidth', -1)
 
-curdir = os.path.dirname(__file__) + '/'
-path = curdir + 'Story-Miner/final_version_relex/'
-data_dir = curdir + "Story-Miner/data/"
-
-sys.path.insert(0, path + 'base-codes')
-
+curdir = os.path.dirname(__file__)
+main_functions_dir = os.path.join(curdir, app.config['MAIN_FUNCTIONS_DIR'])
+data_dir = os.path.join(curdir, app.config['DATA_DIR'])
+sys.path.insert(0, main_functions_dir)
 from main_functions import *
 
 
 
 @app.route('/' , methods=['GET', 'POST'])
-
-
 
 def index():
     form = InputForm()

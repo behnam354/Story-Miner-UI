@@ -6,7 +6,7 @@ import sys
 class MyDaemon(Daemon):
     def run(self):
         while True:
-            app.run(host = '0.0.0.0', port='5000')
+            app.run(host = app.config['SERVE_HOST'], port = app.config['SERVE_PORT'])
             
 if __name__ == "__main__":
     daemon = MyDaemon('/tmp/serve.pid')
