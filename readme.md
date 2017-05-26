@@ -1,6 +1,8 @@
 Story Analysis UI Demo
 =======
 
+The demo page is at http://big-data.ee.ucla.edu/demo/
+
 This demo page is for entity relationship extraction. The user may input some texts in the textarea and get 
 the entities and relationships in the texts by simply clicking the submit button. If any relationships found 
 in the text, three tables will show up and display the extracted relationships, ranking of the extractions, 
@@ -39,7 +41,7 @@ The graph is implemented with [D3.v3.js](https://d3js.org/).
 ```
 See the webpage at http://localhost:5000
 
-* To deploy on the server:
+* To test on a server:
 ```
 	python serve.py start | stop | restart
 ```
