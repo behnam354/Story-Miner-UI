@@ -26,6 +26,14 @@ The graph is implemented with [D3.v3.js](https://d3js.org/).
 	sudo pip install nltk
 	python -m nltk.downloader all
 ```
+* nltk_data
+```
+	python
+	>> import nltk
+	>> nltk.download('punkt')
+```
+Move the nltk_data folder to /var/www or /usr/lib (or some other folder as long as the app can find it) 
+
 * Flask 0.10.1 
 ```
 	sudo pip install Flask
