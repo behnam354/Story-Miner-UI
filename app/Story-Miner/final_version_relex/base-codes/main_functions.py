@@ -446,7 +446,7 @@ def text_corpus_to_rels(
     #print len(texts)
     
     output_prefix = output_dir_arg + input_fname
-    f_rel = open(output_prefix +"_"+"relations_" + str(MAX_ITERATION) +".csv", "w")
+    #f_rel = open(output_prefix +"_"+"relations_" + str(MAX_ITERATION) +".csv", "w")
     
     #f_input_plus_annotations = open(output_prefix +"_with_annotations" +".csv", "w")
 
@@ -456,8 +456,8 @@ def text_corpus_to_rels(
               'arg1_prepositions', 'rel_prepositions', 'arg2_prepositions']
     if SAVE_ANNOTATIONS_TO_FILE:
         header = header + ['annotation']
-    dict_writer = csv.DictWriter(f_rel, header)
-    dict_writer.writeheader()#writerow(header)    
+    #dict_writer = csv.DictWriter(f_rel, header)
+    #dict_writer.writeheader()#writerow(header)    
     
     annotator = Annotator()
     all_rels_str = []
@@ -478,15 +478,15 @@ def text_corpus_to_rels(
         except:
             print "Error in sentence tokenizer! - ", t_orig
         for t in t_sentences:
-            try:
-				if LOAD_ANNOTATIONS:
-					t_annotated = df.iloc[ind]["annotation"]
-					t_annotated = ast.literal_eval(t_annotated) 
-				else:
-					t_annotated = annotator.getAnnotations(t, dep_parse=True)
-            except:
-                print "Error in sentence annotation"
-                continue
+            #try:
+            if LOAD_ANNOTATIONS:
+                    t_annotated = df.iloc[ind]["annotation"]
+                    t_annotated = ast.literal_eval(t_annotated) 
+            else:
+                    t_annotated = annotator.getAnnotations(t, dep_parse=True)
+            #except:
+            #    print "Error in sentence annotation"
+            #    continue
             try:
 				g_dir = create_dep_graph(t_annotated)
 				if g_dir is None:
@@ -520,7 +520,7 @@ def text_corpus_to_rels(
                 output.append(output_row)
                 #print " output is : ", output
                 #output_subset = dict((k,output[k]) for k in header)
-                dict_writer.writerow(output_row)
+                #dict_writer.writerow(output_row)
                 
                 
     if SAVE_ALL_RELS:

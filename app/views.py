@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, redirect, jsonify
+from flask import render_template, redirect, jsonify, abort
 from .forms import InputForm
 import pandas as pd
 from networkx.readwrite.json_graph import node_link_data
@@ -10,20 +10,28 @@ import time
 import json
 
 pd.set_option('display.max_colwidth', -1)
-curdir = os.path.dirname(__file__) 
-main_functions_dir = app.config['MAIN_FUNCTIONS_DIR_NEW']
-data_dir = app.config['DATA_DIR_NEW']
+curdir = os.path.dirname(__file__)
+main_functions_dir = None
+data_dir = None
+if not app.config['USE_NEW_PATH'] \
+   or 'MAIN_FUNCTIONS_DIR_NEW' not in app.config \
+   or 'DATA_DIR_NEW' not in app.config \
+   or not app.config['MAIN_FUNCTIONS_DIR_NEW'] \
+   or not app.config['DATA_DIR_NEW']:
 
-if not main_functions_dir:
     print "main_function_dir_default"
     main_functions_dir = os.path.join(curdir, app.config['MAIN_FUNCTIONS_DIR_DEFAULT'])
-else:
-    print "main_function_dir_new"
-if not data_dir:
     print "data_dir_default"
     data_dir = os.path.join(curdir, app.config['DATA_DIR_DEFAULT'])
+
+
 else:
     print "main_function_dir_new"
+    main_functions_dir = app.config['MAIN_FUNCTIONS_DIR_NEW']
+    print "main_function_dir_new"
+    data_dir = app.config['DATA_DIR_NEW']
+
+
     
 sys.path.insert(0, main_functions_dir)
 from main_functions import *
@@ -86,7 +94,7 @@ def index():
                                         state = state
                                         )    
         except:
-           abort(500)
+           return abort(500)
 
     return render_template('index.html', form = form)
 

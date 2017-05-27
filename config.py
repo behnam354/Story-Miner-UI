@@ -1,5 +1,16 @@
 # Config must be UPPERCASE!!!
 
+USE_NEW_PATH = 0
+
+# new absolute path
+MAIN_FUNCTIONS_DIR_NEW = '' 
+DATA_DIR_NEW = ''
+
+
+# backend default path
+MAIN_FUNCTIONS_DIR_DEFAULT = 'Story-Miner/final_version_relex/base-codes/'
+DATA_DIR_DEFAULT = 'Story-Miner/data/'
+
 # security
 CSRF_ENABLED = True
 SECRET_KEY = 'you-will-never-guess'
@@ -11,17 +22,6 @@ LOCAL_PORT = 5000
 # serve
 SERVE_HOST = '0.0.0.0'
 SERVE_PORT = 5000
-
-# backend default path
-MAIN_FUNCTIONS_DIR_DEFAULT = 'Story-Miner/final_version_relex/base-codes/'
-DATA_DIR_DEFAULT = 'Story-Miner/data/'
-
-
-
-# replace default path with new absolute path
-MAIN_FUNCTIONS_DIR_NEW = '' 
-DATA_DIR_NEW = ''
-
 
 # parameters
 SEPARATE_SENT = True 
