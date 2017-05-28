@@ -1,6 +1,7 @@
 from app import app
 from flask import render_template, redirect, jsonify, abort
 from .forms import InputForm
+import numpy as np
 import pandas as pd
 from networkx.readwrite.json_graph import node_link_data
 import sys
@@ -114,7 +115,8 @@ def get_top_rels(all_rels,top_num=-1):
         for letter,count in cnt.most_common(top_num):
             print letter, ": ", count
             df.loc[len(df)] = [letter, count]
-    
+
+    df["count"] = df["count"].astype(np.int64)
     return df
 
 def count_entities(entities,top_num=-1):
@@ -133,7 +135,7 @@ def count_entities(entities,top_num=-1):
             print letter, ": ", count
             df.loc[len(df)] = [letter, count]
 
-
+    df["count"] = df["count"].astype(np.int64)
     return df
 
 def getOutput(text):
