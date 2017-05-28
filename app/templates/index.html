@@ -50,7 +50,7 @@
 	{% for table in tables %}
 		<h2 class="text-primary">{{titles[loop.index-1]}}</h2>
 		<div>
-		  <div style='overflow:scroll;max-height:420px;'>
+		  <div style='overflow:auto;max-height:420px;'>
 					{{ table|safe }}<br>
 		   </div>
 		</div>

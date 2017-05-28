@@ -63,7 +63,7 @@ LOAD_ANNOTATIONS = app.config['LOAD_ANNOTATIONS']
 def index():
     form = InputForm()
     if form.validate_on_submit():
-        try:
+        #try:
             tables = None
             titles = None
             graph = None
@@ -93,8 +93,8 @@ def index():
                                         graphTitle = graphTitle,
                                         state = state
                                         )    
-        except:
-           return abort(500)
+        #except:
+        #   return abort(500)
 
     return render_template('index.html', form = form)
 
