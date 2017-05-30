@@ -139,7 +139,7 @@ def count_entities(entities,top_num=-1):
     return df
 
 def getOutput(text):
-
+    text = text.encode('utf8')
     print text
     if '\r\n' in text:
         texts = text.split('\r\n')
