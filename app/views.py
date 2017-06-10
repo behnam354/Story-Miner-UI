@@ -107,6 +107,7 @@ def index():
                             #filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                             #f.save(filepath)
                             inputText = f.read()
+
                         else:
                             white_list = app.config['ALLOWED_EXTENSIONS']
                             white_list_str = ', '.join(white_list)
