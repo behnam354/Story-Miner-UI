@@ -109,31 +109,37 @@
 	
 </script>
 
-<form action='' method='post' name='input'>
+<form action='' method='post' name='input' enctype='multipart/form-data'>
 	{{ form.hidden_tag() }}
-	<p>
+
+	<div class="form-group">
 		{{form.text(rows='10', cols='100', id ='form', placeholder="Enter some contents in this field.", 
 					style='width: 100%;', class = 'form-control')}}
 			{% for error in form.text.errors %}
 				<div id='err' class="alert alert-danger">{{ error }}</div>
 			{% endfor %}
-	</p>
-	<p>
+	</div>
+	<div class="form-group">
+		<label>Enter some text in the input box above <br> or <br> Upload a file</label>
+		<input type="file" name='file' id="file">
+		<p class="help-block">Upload a .txt file less than 10KB.</p>
+	</div>
+	<div class = 'form-group'>
 		<span>{{ form.showRels }} show relationships </span>&nbsp;&nbsp
 		<span>{{ form.rankRels }} rank relationships </span>&nbsp;&nbsp
 		<span>{{ form.rankEntities }} rank entities </span>&nbsp;&nbsp
 		<span>{{ form.showGraph }} show graph </span>
-	</p>
-	<p>
-	<input type="submit" value="submit" class="btn btn-primary btn-lg" style='background-color:#111111' >&nbsp&nbsp
-	<span id='state'></span>
-	</p>
+	</div>
+	<div class = 'form-group'>
+		<input type="submit" value="submit" class="btn btn-primary btn-lg" style='background-color:#111111' >&nbsp&nbsp
+		<span id='state'></span>
+	</div>
 </form>
 
 <div class='page' id='output'> 
 	{% if state|string() == "Succeeded!"%}
 	<div  class="alert alert-success">{{state}}</div>
-	{% elif state|string() == "No relationships extracted."  %}
+	{% elif state|string() != ""  %}
 	<div  class="alert alert-warning">{{state}}</div>
 	{% endif%}
 

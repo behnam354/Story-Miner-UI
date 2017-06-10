@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, redirect, jsonify, abort
+from flask import render_template, redirect, jsonify, abort, request, url_for
 from .forms import InputForm
 import numpy as np
 import pandas as pd
@@ -9,6 +9,7 @@ import os
 import os.path
 import time
 import json
+from werkzeug.utils import secure_filename
 
 pd.set_option('display.max_colwidth', -1)
 curdir = os.path.dirname(__file__)
@@ -60,42 +61,88 @@ LOAD_ANNOTATIONS = app.config['LOAD_ANNOTATIONS']
 
 
 @app.route('/' , methods=['GET', 'POST'])
-
+##def upload_file():
+##    form = InputForm()
+##    if request.method == 'POST':
+##        # check if the post request has the file part
+##        if 'file' not in request.files:
+##            flash('No file part')
+##            return redirect(request.url)
+##        f = request.files['file']
+##        # if user does not select file, browser also
+##        # submit a empty part without filename
+##        if f.filename == '':
+##            flash('No selected file')
+##            return redirect(request.url)
+##        if f and allowed_file(f.filename):
+##            filename = secure_filename(f.filename)
+##            f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+##            return render_template('index.html', form = form)
+##    return '''
+##    <!doctype html>
+##    <title>Upload new File</title>
+##    <h1>Upload new File</h1>
+##    <form method=post enctype=multipart/form-data>
+##      <p><input type=file name=file>
+##         <input type=submit value=Upload>
+##    </form>
+##    '''
 def index():
 	form = InputForm()
 	if form.validate_on_submit():
-		#try:
-			tables = None
-			titles = None
-			graph = None
-			graphTitle = None
-			state = None
-			checkTable = [form.showRels.data,
-						form.rankRels.data,
-						form.rankEntities.data]
-			checkGraph = form.showGraph.data
-			
-			output = getOutput(form.text.data)
-			if output:
-				tables, titles, graph, graphTitle = output
-				tables = [tables[i] for i, v in enumerate(checkTable) if v == True]
-				titles = [titles[i] for i, v in enumerate(checkTable) if v == True]
-				if not checkGraph:
-					graph = None
-					graphTitle = None
-				state = "Succeeded!"
-			else:
-				state = "No relationships extracted." 
-			return render_template('index.html',
-                                                form = form,
-                                                tables = tables,
-                                                titles = titles,
-                                                graph = graph,
-                                                graphTitle = graphTitle,
-                                                state = state
-                                                )	
-		#except:
-		#   return abort(500)
+            try:
+                tables = None
+                titles = None
+                graph = None
+                graphTitle = None
+                state = None
+                inputText = form.text.data
+
+                
+                # check if the post request has the file part
+                if request.method == 'POST' and 'file' in request.files and request.files['file']:
+                        f = request.files['file']
+                        if allowed_file(f.filename):
+                            #filename = secure_filename(f.filename)
+                            #filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                            #f.save(filepath)
+                            inputText = f.read()
+                        else:
+                            white_list = app.config['ALLOWED_EXTENSIONS']
+                            white_list_str = ', '.join(white_list)
+                            state = "File upload failed! The file extension should be " + white_list_str
+                            return render_template('index.html',
+                                                   form = form,
+                                                   state = state)    
+                        
+                
+                # normal process
+                checkTable = [form.showRels.data,
+                                form.rankRels.data,
+                                form.rankEntities.data]
+                checkGraph = form.showGraph.data
+                
+                output = getOutput(inputText)
+                if output:
+                        tables, titles, graph, graphTitle = output
+                        tables = [tables[i] for i, v in enumerate(checkTable) if v == True]
+                        titles = [titles[i] for i, v in enumerate(checkTable) if v == True]
+                        if not checkGraph:
+                                graph = None
+                                graphTitle = None
+                        state = "Succeeded!"
+                else:
+                        state = "No relationships extracted." 
+                return render_template('index.html',
+                                        form = form,
+                                        tables = tables,
+                                        titles = titles,
+                                        graph = graph,
+                                        graphTitle = graphTitle,
+                                        state = state
+                                        )	
+            except:
+               return abort(500)
 
 	return render_template('index.html', form = form)
 
@@ -224,7 +271,9 @@ def getOutput(text):
 	else:
 		return None
 
-
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
 
 @app.errorhandler(500)
@@ -236,3 +285,8 @@ def page_not_found(e):
 
 def page_not_found(e):
 	return render_template('404.html'), 404   
+
+@app.errorhandler(413)
+
+def page_not_found(e):
+	return render_template('413.html'), 413  

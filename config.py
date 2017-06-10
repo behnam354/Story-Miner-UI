@@ -11,6 +11,11 @@ DATA_DIR_NEW = ''
 MAIN_FUNCTIONS_DIR_DEFAULT = 'Story-Miner/final_version_relex/base-codes/'
 DATA_DIR_DEFAULT = 'Story-Miner/data/'
 
+# upload files
+UPLOAD_FOLDER = ''
+ALLOWED_EXTENSIONS = ['txt']
+MAX_CONTENT_LENGTH = 10 * 1024  #10 KB
+
 # security
 CSRF_ENABLED = True
 SECRET_KEY = 'you-will-never-guess'
