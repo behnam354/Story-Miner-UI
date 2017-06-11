@@ -141,7 +141,7 @@
 	{{ form.hidden_tag() }}
 
 	<div class="form-group">
-		{{form.text(rows='10', cols='100', id ='form', placeholder="Enter some contents in this field.", 
+		{{form.text(rows='7', cols='100', id ='form', placeholder="Enter some contents in this field.", 
 					style='width: 100%;', class = 'form-control')}}
 			{% for error in form.text.errors %}
 				<div id='err' class="alert alert-danger">{{ error }}</div>
