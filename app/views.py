@@ -122,8 +122,8 @@ def index():
                                 form.rankRels.data,
                                 form.rankEntities.data]
                 checkGraph = form.showGraph.data
-                
-                output = getOutput(inputText)
+                mapping = getEntityMapping(form.entityMapping.data)
+                output = getOutput(inputText, mapping)
                 if output:
                         tables, titles, graph, graphTitle = output
                         tables = [tables[i] for i, v in enumerate(checkTable) if v == True]
@@ -201,7 +201,7 @@ def getDistinctRels(df_rels):
         return df_rels
 
 
-def getOutput(text):
+def getOutput(text, entityMapping = None):
 	text = text.encode('utf8')
 	print text
 	if '\r\n' in text:
@@ -259,7 +259,17 @@ def getOutput(text):
                                         SAVE_PAIRWISE_RELS,
                                         SHOW_ARGUMENT_GRAPH   
                                    )
-
+##		g_arg = rels_to_network(df_rels_distinct,
+##                                        input_fname,
+##                                        output_dir_arg,
+##                                        MAX_ITERATION,
+##                                        NODE_SELECTION,
+##                                        DATA_SET,
+##                                        SAVE_GEFX,
+##                                        SAVE_PAIRWISE_RELS,
+##                                        SHOW_ARGUMENT_GRAPH,
+##                                        entityMapping
+##                                   )
 		entities = list(df_rels['arg1']) + list(df_rels['arg2'])
 		df_entities = count_entities(entities,top_num=-1) 
 		classes = 'table table-bordered table-hover table-striped '
@@ -275,7 +285,20 @@ def getOutput(text):
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
-
+                
+def getEntityMapping(data):
+    dic = dict()
+    lines = data.split('\n')
+    for line in lines:
+        line = line.replace(" ", "")
+        ls = line.split('=')
+        if len(ls) == 2 and ls[0] and ls[1]:
+            key = ls[0]
+            values = ls[1].split(',')
+            values = filter(None, values)
+            if values:
+                dic[key] = values
+    return dic
 
 @app.errorhandler(500)
 

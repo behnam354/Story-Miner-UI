@@ -14,3 +14,15 @@
     left: 0;
 }
 
+.btn-primary{
+	background-color:#222
+}
+.btn-primary:active:focus {
+    background-color: black; 
+}
+.btn-primary:hover {
+	background-color: black
+}
+.btn-primary[disabled]:hover {
+    background: #222;
+}

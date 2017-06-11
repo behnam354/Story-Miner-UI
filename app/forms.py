@@ -16,4 +16,10 @@ Given the text available in this box as input; automatically Strands extracts na
     rankRels = BooleanField('rank relationships', default=True)
     rankEntities = BooleanField('rank entities', default=True)
     showGraph = BooleanField('show graph', default=True)
+    entityMapping = TextAreaField('entityMapping',
+                         #validators=[DataRequired()],
+                         #validators=[Length(max=500)],
+                         )
+
+
     

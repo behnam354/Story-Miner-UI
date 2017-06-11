@@ -106,7 +106,35 @@
 			 exportJson(this);
 		});
 	});
-	
+
+
+	$(function() {
+
+	  // We can attach the `fileselect` event to all file inputs on the page
+	  $(document).on('change', ':file', function() {
+		var input = $(this),
+			numFiles = input.get(0).files ? input.get(0).files.length : 1,
+			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		input.trigger('fileselect', [numFiles, label]);
+	  });
+
+	  // We can watch for our custom `fileselect` event like this
+	  $(document).ready( function() {
+		  $(':file').on('fileselect', function(event, numFiles, label) {
+
+			  var input = $(this).parents('.input-group').find(':text'),
+				  log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+			  if( input.length ) {
+				  input.val(log);
+			  } else {
+				  if( log ) alert(log);
+			  }
+
+		  });
+	  });
+	  
+	});
 </script>
 
 <form action='' method='post' name='input' enctype='multipart/form-data'>
@@ -119,10 +147,29 @@
 				<div id='err' class="alert alert-danger">{{ error }}</div>
 			{% endfor %}
 	</div>
-	<div class="form-group">
-		<label>Enter some text in the input box above <br> or <br> Upload a file</label>
-		<input type="file" name='file' id="file">
+	<div class="form-group panel panel-default">
+		<label><br>Enter some text in the input box above <br> or <br> Upload a file</label><br>
+		
+		<div class="input-group col-xs-3">
+			<label class="input-group-btn">
+				<span class="btn btn-primary upload">
+					Choose a file&hellip; <input type="file" name='file' id='file' style="display: none;" multiple>
+				</span>
+			</label>
+			<input type="text" class="form-control" readonly>
+		</div>
+
 		<p class="help-block">Upload a .txt file less than 10KB.</p>
+	</div>
+	<div class = 'form-group'>
+	    <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#entityMapping">
+			Entity Mapping &raquo
+	    </button>
+	    <div id="entityMapping" class="collapse">
+			<br>Enter the entities you consider equivalent:<br>
+			{{form.entityMapping(rows='3', cols='100', id ='form', placeholder="entity1 = entity2, entity3\nentity4 = entity5, entity6, entity7", 
+						style='width: 100%;', class = 'form-control')}}
+	    </div>
 	</div>
 	<div class = 'form-group'>
 		<span>{{ form.showRels }} show relationships </span>&nbsp;&nbsp
@@ -131,7 +178,7 @@
 		<span>{{ form.showGraph }} show graph </span>
 	</div>
 	<div class = 'form-group'>
-		<input type="submit" value="submit" class="btn btn-primary btn-lg" style='background-color:#111111' >&nbsp&nbsp
+		<input type="submit" value="submit" class="btn btn-primary btn-lg" >&nbsp&nbsp
 		<span id='state'></span>
 	</div>
 </form>
@@ -145,7 +192,7 @@
 
 	{% if tables %}
 		{% for table in tables %}
-			<h2 class="text-primary">{{titles[loop.index-1]}}</h2>
+			<h2>{{titles[loop.index-1]}}</h2>
 
 			<a href='#' class='btn download-btn' data-tableId = '{{loop.index-1}}'>Download</a>
 			<div>
@@ -160,7 +207,7 @@
 	{% endif %}
 		
 	{% if graph %}	
-		<h2 class="text-primary">{{graphTitle}}</h2>
+		<h2>{{graphTitle}}</h2>
 		<p class = "well">
 			Note: You may zoom the graph and drag the nodes. 
 		</p>
