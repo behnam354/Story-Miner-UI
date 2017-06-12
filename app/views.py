@@ -11,6 +11,7 @@ import time
 import json
 from werkzeug.utils import secure_filename
 
+
 pd.set_option('display.max_colwidth', -1)
 curdir = os.path.dirname(__file__)
 main_functions_dir = None
@@ -90,7 +91,7 @@ LOAD_ANNOTATIONS = app.config['LOAD_ANNOTATIONS']
 def index():
 	form = InputForm()
 	if form.validate_on_submit():
-            try:
+            #try:
                 tables = None
                 titles = None
                 graph = None
@@ -106,7 +107,7 @@ def index():
                             #filename = secure_filename(f.filename)
                             #filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                             #f.save(filepath)
-                            inputText = f.read()
+                            inputText = f.read().decode(errors='replace')
 
                         else:
                             white_list = app.config['ALLOWED_EXTENSIONS']
@@ -142,8 +143,8 @@ def index():
                                         graphTitle = graphTitle,
                                         state = state
                                         )	
-            except:
-               return abort(500)
+            #except:
+            #   return abort(500)
 
 	return render_template('index.html', form = form)
 
@@ -202,7 +203,7 @@ def getDistinctRels(df_rels):
 
 
 def getOutput(text, entityMapping = None):
-	text = text.encode('utf8')
+	text = text.encode('utf-8')
 	print text
 	if '\r\n' in text:
 		texts = text.split('\r\n')
