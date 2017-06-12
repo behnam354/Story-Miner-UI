@@ -103,12 +103,21 @@ def index():
                 # check if the post request has the file part
                 if request.method == 'POST' and 'file' in request.files and request.files['file']:
                         f = request.files['file']
+                        
                         if allowed_file(f.filename):
                             #filename = secure_filename(f.filename)
                             #filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                             #f.save(filepath)
                             inputText = f.read().decode(errors='replace')
-
+                            size = len(inputText)
+                            print "**********************************"
+                            print size
+                            
+                            if size >= app.config['MAX_CONTENT']:
+                                    state = "File upload failed! The file should be smaller than {0} KB".format(app.config['MAX_CONTENT']/1024 )
+                                    return render_template('index.html',
+                                                           form = form,
+                                                           state = state)   
                         else:
                             white_list = app.config['ALLOWED_EXTENSIONS']
                             white_list_str = ', '.join(white_list)
@@ -311,7 +320,4 @@ def page_not_found(e):
 def page_not_found(e):
 	return render_template('404.html'), 404   
 
-@app.errorhandler(413)
 
-def page_not_found(e):
-	return render_template('413.html'), 413  
