@@ -26,3 +26,12 @@
 .btn-primary[disabled]:hover {
     background: #222;
 }
+
+
+.left {
+    width: 75%;
+    float: left;
+}
+.right {
+    margin-left: 77%;
+}
