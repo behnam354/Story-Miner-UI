@@ -191,7 +191,7 @@
 	</section>
 </form>
 
-<div class='page' id='output'> 
+<div class='page left' id='output'> 
 	{% if state|string() == "Succeeded!"%}
 	<div  class="alert alert-success">{{state}}</div>
 	{% elif state|string() != ""  %}
