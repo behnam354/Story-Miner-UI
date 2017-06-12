@@ -194,8 +194,10 @@
 <div class='page left' id='output'> 
 	{% if state|string() == "Succeeded!"%}
 	<div  class="alert alert-success">{{state}}</div>
+	{% elif state|string() == "No relationships extracted."  %}
+	<div  class="alert alert-info">{{state}}</div>
 	{% elif state|string() != ""  %}
-	<div  class="alert alert-warning">{{state}}</div>
+	<div  class="alert alert-danger">{{state}}</div>
 	{% endif%}
 
 	{% if tables %}
