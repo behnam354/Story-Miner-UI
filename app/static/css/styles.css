@@ -14,18 +14,14 @@
     left: 0;
 }
 
-.btn-primary{
+.btn-primary, .btn-primary[disabled]:hover{
 	background-color:#222
+	
 }
-.btn-primary:active:focus {
-    background-color: black; 
+.btn-primary:hover, .btn-primary:active,  .btn-primary:active:focus,  .btn-primary:focus, .btn-primary:visited{
+    background-color: black;
 }
-.btn-primary:hover {
-	background-color: black
-}
-.btn-primary[disabled]:hover {
-    background: #222;
-}
+
 
 
 .left {

@@ -227,6 +227,8 @@ def getOutput(text, entityMapping = None):
 	output_dir_arg = data_dir
 	start_time = time.time()
 
+
+        
 	all_rels_str, all_rels, output = text_corpus_to_rels(file_input_arg,
                                                              DATA_SET,
                                                              INPUT_DELIMITER,
@@ -298,7 +300,9 @@ def allowed_file(filename):
                 
 def getEntityMapping(data):
     dic = dict()
+    data = data.replace(";", "\n")
     lines = data.split('\n')
+    
     for line in lines:
         line = line.replace(" ", "")
         ls = line.split('=')

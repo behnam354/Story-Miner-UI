@@ -3,99 +3,109 @@
 {% block content %}
 <script type="text/javascript">
 	
-	$(document).ready(function () {
-		// Handler for .ready() called.
-		$('html, body').animate({
+	$(document).ready(function () { // start of jquery
+
+		$('html, body').css("font-family", "Monaco, Calibri, Courier New")
+		.animate({
 			scrollTop: $('#state').offset().top
 		}, 'slow');
-	});
-	
-    $(function() {
+
         $('form').submit(function() {
             $(':submit').attr('disabled', 'disabled');
-            document.getElementById("state").innerHTML = 'Processing... Please wait.';
-			document.getElementById("output").innerHTML = '';
+            $("#state").html('Processing... Please wait.');
+			$("#output").html('');
         });
-    });
-	
-	$(function() {
-	  function exportTableToCSV($table, filename) {
-		console.log($table);
-		var $rows = $table.find('tr:has(th), tr:has(td)'),
-
-		  // Temporary delimiter characters unlikely to be typed by keyboard
-		  // This is to avoid accidentally splitting the actual contents
-		  tmpColDelim = String.fromCharCode(11), // vertical tab character
-		  tmpRowDelim = String.fromCharCode(0), // null character
-
-		  // actual delimiter characters for CSV format
-		  colDelim = '","',
-		  rowDelim = '"\r\n"',
-
-		  // Grab text from table into CSV formatted string
-		  csv = '"' + $rows.map(function(i, row) {
-			var $row = $(row),
-			  $cols = $row.find('th, td');
-
-			return $cols.map(function(j, col) {
-			  var $col = $(col),
-				text = $col.text();
-
-			  return text.replace(/"/g, '""'); // escape double quotes
-
-			}).get().join(tmpColDelim);
-
-		  }).get().join(tmpRowDelim)
-		  .split(tmpRowDelim).join(rowDelim)
-		  .split(tmpColDelim).join(colDelim) + '"';
-
-		// Deliberate 'false', see comment below
-		if (false && window.navigator.msSaveBlob) {
-
-		  var blob = new Blob([decodeURIComponent(csv)], {
-			type: 'text/csv;charset=utf8'
-		  });
-
-		  // Crashes in IE 10, IE 11 and Microsoft Edge
-		  // See MS Edge Issue #10396033
-		  // Hence, the deliberate 'false'
-		  // This is here just for completeness
-		  // Remove the 'false' at your own risk
-		  window.navigator.msSaveBlob(blob, filename);
-
-		} else if (window.Blob && window.URL) {
-		  // HTML5 Blob        
-		  var blob = new Blob([csv], {
-			type: 'text/csv;charset=utf-8'
-		  });
-		  var csvUrl = URL.createObjectURL(blob);
-
-		  $(this)
-			.attr({
-			  'download': filename,
-			  'href': csvUrl
+		
+		$('h2')
+			.hover(
+			function(){
+				$(this).css({"color": "blue",
+							"cursor":"pointer"
+				});
+			}, 
+			function(){
+				$(this).css({"color": "black",
+							"cursor": "auto"});
+			})
+			.click(function(){
+				$(this).parent().find("div").slideToggle(300, function () {
+					$(this).is(":visible") ? "Collapse" : "Expand";
+				});
 			});
-		} else {
-		  // Data URI
-		  var csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
 
-		  $(this)
-			.attr({
-			  'download': filename,
-			  'href': csvData,
-			  'target': '_blank'
-			});
+		function exportTableToCSV($table, filename) {
+			console.log($table);
+			var $rows = $table.find('tr:has(th), tr:has(td)'),
+
+			  // Temporary delimiter characters unlikely to be typed by keyboard
+			  // This is to avoid accidentally splitting the actual contents
+			  tmpColDelim = String.fromCharCode(11), // vertical tab character
+			  tmpRowDelim = String.fromCharCode(0), // null character
+
+			  // actual delimiter characters for CSV format
+			  colDelim = '","',
+			  rowDelim = '"\r\n"',
+
+			  // Grab text from table into CSV formatted string
+			  csv = '"' + $rows.map(function(i, row) {
+				var $row = $(row),
+				  $cols = $row.find('th, td');
+
+				return $cols.map(function(j, col) {
+				  var $col = $(col),
+					text = $col.text();
+
+				  return text.replace(/"/g, '""'); // escape double quotes
+
+				}).get().join(tmpColDelim);
+
+			  }).get().join(tmpRowDelim)
+			  .split(tmpRowDelim).join(rowDelim)
+			  .split(tmpColDelim).join(colDelim) + '"';
+
+			// Deliberate 'false', see comment below
+			if (false && window.navigator.msSaveBlob) {
+
+			  var blob = new Blob([decodeURIComponent(csv)], {
+				type: 'text/csv;charset=utf8'
+			  });
+
+			  // Crashes in IE 10, IE 11 and Microsoft Edge
+			  // See MS Edge Issue #10396033
+			  // Hence, the deliberate 'false'
+			  // This is here just for completeness
+			  // Remove the 'false' at your own risk
+			  window.navigator.msSaveBlob(blob, filename);
+
+			} else if (window.Blob && window.URL) {
+			  // HTML5 Blob        
+			  var blob = new Blob([csv], {
+				type: 'text/csv;charset=utf-8'
+			  });
+			  var csvUrl = URL.createObjectURL(blob);
+
+			  $(this).attr({
+				  'download': filename,
+				  'href': csvUrl
+				});
+			} else {
+			  // Data URI
+			  var csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+
+			  $(this).attr({
+				  'download': filename,
+				  'href': csvData,
+				  'target': '_blank'
+				});
+			}
 		}
-	  }
-	  
-	  $(".download-btn").on('click', function(e1){
-		var tableId = $(this).attr('data-tableId');
-		console.log(tableId);
-		exportTableToCSV.apply(this, [$('#'+ tableId + '>table'), 'table_' + tableId + '.csv'])
-	  });
-	});
-			
-	$(function() {
+		  
+		$(".download-btn").on('click', function(e1){
+			var tableId = $(this).attr('data-tableId');
+			console.log(tableId);
+			exportTableToCSV.apply(this, [$('#'+ tableId + '>table'), 'table_' + tableId + '.csv'])
+		});
+
 		function exportJson(el) {
 			var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(jsondata));
 			//console.log(data)
@@ -105,43 +115,75 @@
 		$("#exportJSON").on('click', function(e1){
 			 exportJson(this);
 		});
-	});
 
 
-	$(function() {
+		// We can attach the `fileselect` event to all file inputs on the page
+		$(document).on('change', ':file', function() {
+			var input = $(this),
+				numFiles = input.get(0).files ? input.get(0).files.length : 1,
+				label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+			input.trigger('fileselect', [numFiles, label]);
+		});
 
-	  // We can attach the `fileselect` event to all file inputs on the page
-	  $(document).on('change', ':file', function() {
-		var input = $(this),
-			numFiles = input.get(0).files ? input.get(0).files.length : 1,
-			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-		input.trigger('fileselect', [numFiles, label]);
-	  });
+		// We can watch for our custom `fileselect` event like this
+		$(document).ready( function() {
+			$(':file').on('fileselect', function(event, numFiles, label) {
 
-	  // We can watch for our custom `fileselect` event like this
-	  $(document).ready( function() {
-		  $(':file').on('fileselect', function(event, numFiles, label) {
+				var input = $(this).parents('.input-group').find(':text'),
+					log = numFiles > 1 ? numFiles + ' files selected' : label;
 
-			  var input = $(this).parents('.input-group').find(':text'),
-				  log = numFiles > 1 ? numFiles + ' files selected' : label;
+				if( input.length ) {
+					input.val(log);
+				} else {
+					if( log ) alert(log);
+				}
 
-			  if( input.length ) {
-				  input.val(log);
-			  } else {
-				  if( log ) alert(log);
-			  }
+			});
+		});
+		  
+		  
 
-		  });
-	  });
-	  
-	});
+		
+		var placeholder = 'This is a line \nthis should be a new line';
+		$('textarea').attr('value', placeholder);
+
+		$('textarea').focus(function(){
+			if($(this).val() === placeholder){
+				$(this).attr('value', '');
+			}
+		});
+
+		$('textarea').blur(function(){
+			if($(this).val() ===''){
+				$(this).attr('value', placeholder);
+			}    
+		});
+		
+		
+	}); // end of jquery
 </script>
 
 <form action='' method='post' name='input' enctype='multipart/form-data'>
 	{{ form.hidden_tag() }}
-	<section class='left'>
 		<div class="form-group">
+			
+			<label>Upload a file</label>
+			<div class="input-group  col-xs-6">
+			
+				<label class="input-group-btn">
+					<span class="btn btn-primary upload">
+						Choose a file&hellip; <input type="file" name='file' id='file' style="display: none;" >
+					</span>
+				</label>
+				<input type="text" class="form-control" readonly>
+				
+			</div>
 
+			<p class="help-block">Upload a .txt file less than 10KB.</p>
+		</div>
+		
+		<div class="form-group">
+			<label>Or Enter some text in the input box </label>
 			{{form.text(rows='6', cols='100', id ='form', placeholder="Enter some contents in this field.", 
 						style='width: 100%;', class = 'form-control')}}
 				{% for error in form.text.errors %}
@@ -156,7 +198,7 @@
 			</button>
 			<div id="entityMapping" class="collapse">
 				<br>Enter the entities you consider equivalent:<br>
-				{{form.entityMapping(rows='3', cols='100', id ='form', placeholder="entity1 = entity2, entity3\nentity4 = entity5, entity6, entity7", 
+				{{form.entityMapping(rows='3', cols='100', id ='mapping', placeholder="entity1 = entity2, entity3; \nentity4 = entity5, entity6, entity7", 
 							style='width: 100%;', class = 'form-control')}}
 			</div>
 		</div>
@@ -169,29 +211,15 @@
 		</div>
 		<div class='form-group'>
 			<input type="submit" value="submit" class="btn btn-primary btn-lg" >&nbsp&nbsp
+			
 			<span id='state'></span>
 		</div>
-	</section>
-	
-	<section class='right'>
-		<div class="form-group">
-			<label>Enter some text in the input box <br> or <br> Upload a file</label><br>
-			
-			<div class="input-group">
-				<label class="input-group-btn">
-					<span class="btn btn-primary upload">
-						Choose a file&hellip; <input type="file" name='file' id='file' style="display: none;" >
-					</span>
-				</label>
-				<input type="text" class="form-control" readonly>
-			</div>
 
-			<p class="help-block">Upload a .txt file less than 10KB.</p>
-		</div>
-	</section>
+
+
 </form>
 
-<div class='page left' id='output'> 
+<div class='page' id='output'> 
 	{% if state|string() == "Succeeded!"%}
 	<div  class="alert alert-success">{{state}}</div>
 	{% elif state|string() == "No relationships extracted."  %}
@@ -202,38 +230,43 @@
 
 	{% if tables %}
 		{% for table in tables %}
+		<div>
 			<h2>{{titles[loop.index-1]}}</h2>
-
-			<a href='#' class='btn download-btn' data-tableId = '{{loop.index-1}}'>Download</a>
 			<div>
-			  <div id='{{loop.index-1}}' style='overflow:auto;max-height:420px;'>
-				{{ table|safe }}<br>
+				<a href='#' class='btn download-btn' data-tableId = '{{loop.index-1}}'>Download</a>
 				
-			  </div>
+				<div id='{{loop.index-1}}' style='overflow:auto;max-height:420px;'>
+					{{ table|safe }}<br>
+					
+				</div>
 			</div>
-
+		</div>
 		{% endfor %}
 
 	{% endif %}
 		
 	{% if graph %}	
+	<div>
 		<h2>{{graphTitle}}</h2>
-		<p class = "well">
-			Note: You may zoom the graph and drag the nodes. 
-		</p>
-		<a id="exportJSON" class="btn">Download</a>
+		<div>
+			<p class = "well">
+				Note: You may zoom the graph and drag the nodes. 
+			</p>
+		
+			<a id="exportJSON" class="btn">Download</a>
 
-		<div id = 'chartId' style = 'box-shadow: inset 0 0 1em #ccc, 0 0 1em #fff;'>
-		
-		<script>
-			// get json data
-			var jsondata = {{graph|tojson}}
-			var dataset = JSON.parse(jsondata);
-			console.log(dataset);
-			drawGraph(dataset);			
-		</script>
-		
+			<div id = 'chartId' style = 'box-shadow: inset 0 0 1em #ccc, 0 0 1em #fff;'>
+			
+				<script>
+					// get json data
+					var jsondata = {{graph|tojson}}
+					var dataset = JSON.parse(jsondata);
+					console.log(dataset);
+					drawGraph(dataset);			
+				</script>
+			</div>
 		</div>
+	</div>
 	{% endif %}
 
 </div>
