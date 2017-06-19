@@ -137,29 +137,11 @@
 				} else {
 					if( log ) alert(log);
 				}
-
 			});
 		});
 		  
-		  
 
-		
-		var placeholder = 'This is a line \nthis should be a new line';
-		$('textarea').attr('value', placeholder);
 
-		$('textarea').focus(function(){
-			if($(this).val() === placeholder){
-				$(this).attr('value', '');
-			}
-		});
-
-		$('textarea').blur(function(){
-			if($(this).val() ===''){
-				$(this).attr('value', placeholder);
-			}    
-		});
-		
-		
 	}); // end of jquery
 </script>
 
@@ -185,7 +167,7 @@
 		<div class="form-group">
 			<label>Or Enter some text in the input box </label>
 			{{form.text(rows='6', cols='100', id ='form', placeholder="Enter some contents in this field.", 
-						style='width: 100%;', class = 'form-control')}}
+						style='width: 100%; resize: none;', class = 'form-control')}}
 				{% for error in form.text.errors %}
 					<div id='err' class="alert alert-danger">{{ error }}</div>
 				{% endfor %}
@@ -198,8 +180,8 @@
 			</button>
 			<div id="entityMapping" class="collapse">
 				<br>Enter the entities you consider equivalent:<br>
-				{{form.entityMapping(rows='3', cols='100', id ='mapping', placeholder="entity1 = entity2, entity3; \nentity4 = entity5, entity6, entity7", 
-							style='width: 100%;', class = 'form-control')}}
+				{{form.entityMapping(rows='3', cols='100', id ='mapping', placeholder = "entity1 = entity2, entity3; \nentity4 = entity5, entity6, entity7",
+							style='width: 100%; resize: none;', class = 'form-control', )}}
 			</div>
 		</div>
 
