@@ -1,3 +1,3 @@
-This demo {page}	{relationships} extracted	{0: {'label': '{shows}-1'}}
-UCLA Big Data {Group}	{Strands}	{0: {'label': '{introduces}-1'}}
-{Strands}	{narratives}	{0: {'label': 'automatically {extracts}-1'}}
+this demo {page}	{relationships} extracted	{0: {'label': '{shows}-1'}}
+ucla big data {group}	str	{0: {'label': '{introduces}-1'}}
+str	{narratives}	{0: {'label': 'automatically {extracts}-1'}}

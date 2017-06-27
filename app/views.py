@@ -211,7 +211,7 @@ def getDistinctRels(df_rels):
         return df_rels
 
 
-def getOutput(text, entityMapping = None):
+def getOutput(text, entity_versions = None):
 	text = text.encode('utf-8')
 	print text
 	if '\r\n' in text:
@@ -243,7 +243,8 @@ def getOutput(text, entityMapping = None):
                                                              EXTRACT_NESTED_PREPOSITIONS_RELS,
                                                              SAVE_ANNOTATIONS_TO_FILE,
                                                              LOAD_ANNOTATIONS,
-                                                             texts = texts
+                                                             texts = texts,
+                                                             entity_versions = entity_versions
                                                             )   
 																											
 	end_time = time.time()
@@ -271,17 +272,7 @@ def getOutput(text, entityMapping = None):
                                         SAVE_PAIRWISE_RELS,
                                         SHOW_ARGUMENT_GRAPH   
                                    )
-##		g_arg = rels_to_network(df_rels_distinct,
-##                                        input_fname,
-##                                        output_dir_arg,
-##                                        MAX_ITERATION,
-##                                        NODE_SELECTION,
-##                                        DATA_SET,
-##                                        SAVE_GEFX,
-##                                        SAVE_PAIRWISE_RELS,
-##                                        SHOW_ARGUMENT_GRAPH,
-##                                        entityMapping
-##                                   )
+
 		entities = list(df_rels['arg1']) + list(df_rels['arg2'])
 		df_entities = count_entities(entities,top_num=-1) 
 		classes = 'table table-bordered table-hover table-striped '

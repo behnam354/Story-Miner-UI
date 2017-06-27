@@ -436,7 +436,8 @@ def text_corpus_to_rels(
                         EXTRACT_NESTED_PREPOSITIONS_RELS,
                         SAVE_ANNOTATIONS_TO_FILE,
                         LOAD_ANNOTATIONS,
-                        texts = []
+                        texts = [],
+                        entity_versions = None
                        ):
     if not texts:
 
@@ -500,6 +501,10 @@ def text_corpus_to_rels(
                 continue
             rels_pure, rels_simp = get_relations(g_dir, t_annotated, EXTRACT_NESTED_PREPOSITIONS_RELS, option="SVO")
             rels = rels_pure#rels_simp
+            if entity_versions:
+                for i in range(len(rels)):
+                    rels[i]["arg1"] = glob_version(rels[i]["arg1"], entity_versions)
+                    rels[i]["arg2"] = glob_version(rels[i]["arg2"], entity_versions)            
             if SHOW_REL_EXTRACTIONS:
                 print ind, t, "\n"
                 print "Simplifided Version:"
@@ -525,7 +530,8 @@ def text_corpus_to_rels(
                 
     if SAVE_ALL_RELS:
         columns = ['sentence','arg1','rel','arg2','type','pattern','arg1_with_pos','rel_with_pos','arg2_with_pos']
-        df_output.to_csv(output_dir_arg + input_fname + "_" + "output_relations.csv",sep=',', encoding='utf-8',header=True, columns=columns)            
+        df_output.to_csv(output_dir_arg + input_fname + "_" + "output_relations.csv",sep=',', encoding='utf-8',header=True, columns=columns)
+                         
     return all_rels_str, all_rels, output
 
 
@@ -537,11 +543,13 @@ def rels_to_network(df_rels,
                     DATA_SET,
                     SAVE_GEFX,
                     SAVE_PAIRWISE_RELS,
-                    SHOW_ARGUMENT_GRAPH):
+                    SHOW_ARGUMENT_GRAPH,
+                    entity_versions = None):
     
     if NODE_SELECTION:
         # get the list of different versions of an entity. Example : parents,parent,i,we -> parents
-        entity_versions = get_entity_versions(DATA_SET)    
+        if not entity_versions:
+            entity_versions = get_entity_versions(DATA_SET)    
         df_simp = get_simp_df(df_rels.copy(),entity_versions)  
         selected_nodes = entity_versions.keys()
         df_rels_selected = filter_nodes(df_simp.copy(),source='arg1',target='arg2',selected_nodes = selected_nodes)
